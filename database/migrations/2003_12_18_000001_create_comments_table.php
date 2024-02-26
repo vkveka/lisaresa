@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('accomodation_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 

@@ -22,11 +22,11 @@ return new class extends Migration
             $table->integer('cp');
             $table->string('city');
             $table->string('country');
-            $table->float('superficy', 4, 2);
+            $table->float('superficy', 5, 2);
             $table->integer('rooms');
             $table->integer('beds');
             $table->integer('persons');
-            $table->float('note', 2, 2)->nullable();
+            $table->float('note', 3, 2)->nullable();
             $table->timestamps();
         });
     }
