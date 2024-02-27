@@ -23,7 +23,7 @@ class CommentFactory extends Factory
             'user_id' => rand(1, User::count()),
             'content' => $this->faker->paragraph(2),
             'title' => $this->faker->randomElement(['Excellent !', 'Superbe séjour !', 'Génial']),
-            'note' => $this->faker->randomFloat(1, 5),
+            'note' => $this->faker->randomFloat(0, 1, 5),
         ];
     }
 }

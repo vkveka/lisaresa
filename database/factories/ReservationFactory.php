@@ -22,7 +22,7 @@ class ReservationFactory extends Factory
             'user_id' => rand(1, User::count()),
             'accomodation_id' => rand(1, Accomodation::count()),
             'date_in' => now(),
-            'date_out' => now()->addDays(3),
+            'date_out' => now()->addDays(rand(2, 8)),
             'numero' => rand(10000000, 99999999),
             'price' => $this->faker->randomFloat(2, 150, 1500),
         ];

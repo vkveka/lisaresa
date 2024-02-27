@@ -17,4 +17,20 @@ class Reservation extends Model
         'numero',
         'price',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function payment()
+    {
+        // Il n'y a qu'un seul paiement par réservation. Si plusieurs : hasMany()
+        return $this->hasOne(Payment::class);
+    }
+
+    public function accomodation()
+    {
+        return $this->belongsTo(Accomodation::class);
+    }
 }

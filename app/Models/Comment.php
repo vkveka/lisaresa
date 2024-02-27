@@ -16,4 +16,14 @@ class Comment extends Model
         'title',
         'note',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function accomodation()
+    {
+        return $this->belongsTo(Accomodation::class);
+    }
 }

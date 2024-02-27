@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Favori extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'user_id',
-        'accomodation_id',
-    ];
 }

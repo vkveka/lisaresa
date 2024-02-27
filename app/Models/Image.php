@@ -13,4 +13,9 @@ class Image extends Model
         'image',
         'accomodation_id',
     ];
+
+    public function accomodation()
+    {
+        return $this->belongsTo(Accomodation::class);
+    }
 }

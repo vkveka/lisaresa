@@ -25,4 +25,29 @@ class Accomodation extends Model
         'persons',
         'note',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function options()
+    {
+        return $this->belongsToMany(Option::class, 'accomodation_options');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function favoris()
+    {
+        return $this->belongsToMany(User::class, 'favoris');
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

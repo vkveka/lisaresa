@@ -12,4 +12,9 @@ class Option extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function accomodations()
+    {
+        return $this->belongsToMany(Accomodation::class, 'accomodation_options');
+    }
 }
