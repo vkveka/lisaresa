@@ -17,9 +17,9 @@ class AccomodationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence(5),
-            'description' => $this->faker->paragraph(2),
-            'type' => $this->faker->randomElement(['flat', 'house']),
+            'name' => $this->faker->sentence(2),
+            'description' => $this->faker->paragraph(1),
+            'type' => $this->faker->randomElement(['appartement', 'maison']),
             'price' => $this->faker->randomFloat(2, 150, 1500),
             'dispo' => rand(1, 2),
             'address' => $this->faker->streetAddress(),

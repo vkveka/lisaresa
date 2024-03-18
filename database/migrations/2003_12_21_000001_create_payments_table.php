@@ -16,8 +16,8 @@ return new class extends Migration
             $table->float('price', 6, 2);
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('reservation_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete("set null");
+            $table->foreignId('reservation_id')->nullable()->constrained()->onDelete("set null");
         });
     }
 

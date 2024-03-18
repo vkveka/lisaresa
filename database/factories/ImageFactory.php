@@ -18,7 +18,7 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'image' => 'default_picture_' . rand(1, 6) . '.jpg',
+            'name' => 'default_picture_' . rand(1, 6) . '.jpg',
             'accomodation_id' => rand(1, Accomodation::count()),
         ];
     }

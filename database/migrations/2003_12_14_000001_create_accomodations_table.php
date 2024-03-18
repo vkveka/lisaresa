@@ -13,20 +13,21 @@ return new class extends Migration
     {
         Schema::create('accomodations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->string('type');
+            $table->string('name', 40);
+            $table->text('description', 10000);
+            $table->enum('type', ['maison', 'appartement']);
             $table->float('price', 6, 2);
             $table->tinyInteger('dispo');
-            $table->string('address');
-            $table->integer('cp');
-            $table->string('city');
-            $table->string('country');
+            // $table->boolean('dispo');
+            $table->string('address', 200);
+            $table->string('cp', 20);
+            $table->string('city', 50);
+            $table->string('country', 20);
             $table->float('superficy', 5, 2);
             $table->integer('rooms');
             $table->integer('beds');
             $table->integer('persons');
-            $table->float('note', 3, 2)->nullable();
+            $table->float('note', 2, 1)->nullable();
             $table->timestamps();
         });
     }

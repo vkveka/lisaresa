@@ -29,6 +29,18 @@ class OptionSeeder extends Seeder
             ['name' => 'chauffage'],
             ['name' => 'télévision'],
             ['name' => 'jacuzzi'],
+            ['name' => 'fer à repasser'],
+            ['name' => 'bord de mer'],
+            ['name' => 'ménage'],
+            ['name' => 'avec vue'],
+            ['name' => 'chemiinée'],
+            ['name' => 'Produits de salle de bain'],
+            ['name' => 'boîte à clefs'],
+            ['name' => 'console de jeux'],
+            ['name' => 'bibliothèque'],
+            ['name' => 'bouquet TV'],
+            ['name' => 'netflix'],
+            ['name' => 'canal +'],
         ];
 
         DB::table('options')->insert($options);

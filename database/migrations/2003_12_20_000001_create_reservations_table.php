@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->dateTime('date_in');
             $table->dateTime('date_out');
-            $table->string('numero');
+            $table->string('numero', 15);
             $table->float('price', 6, 2);
             $table->timestamps();
 
