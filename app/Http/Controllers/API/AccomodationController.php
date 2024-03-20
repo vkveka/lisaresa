@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Models\Accomodation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAccomodationRequest;
+use App\Http\Requests\UpdateAccomodationRequest;
 use Illuminate\Support\Facades\Validator;
 
 class AccomodationController extends Controller
@@ -26,7 +28,7 @@ class AccomodationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAccomodationRequest $request)
     {
         $accomodation = Accomodation::create([
             'name' => $request->name,
@@ -69,29 +71,8 @@ class AccomodationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Accomodation $accomodation)
+    public function update(UpdateAccomodationRequest $request, Accomodation $accomodation)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'nullable',
-            'description' => 'nullable',
-            'type' => 'nullable',
-            'price' => 'nullable',
-            'dispo' => 'nullable',
-            'address' => 'nullable',
-            'cp' => 'nullable',
-            'city' => 'nullable',
-            'country' => 'nullable',
-            'superficy' => 'nullable',
-            'rooms' => 'nullable',
-            'beds' => 'nullable',
-            'persons' => 'nullable',
-            'note' => 'nullable',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
         $accomodation->update(
             $request->all()
         );
