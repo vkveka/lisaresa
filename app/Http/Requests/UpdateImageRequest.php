@@ -23,8 +23,7 @@ class UpdateImageRequest extends FormRequest
     {
         return [
             'name' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:10000',
-            'index' => 'integer',
-            'accomodation_id' => 'integer',
+            'index' => 'nullable|integer',
         ];
     }
 

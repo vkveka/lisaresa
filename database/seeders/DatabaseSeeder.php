@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             AccomodationSeeder::class,
             ImageSeeder::class,
             OptionSeeder::class,
-            AccomodationOptionSeeder::class,
+            // AccomodationOptionSeeder::class,
             CommentSeeder::class,
-            FavoriSeeder::class,
+            // FavoriSeeder::class,
             ReservationSeeder::class,
             PaymentSeeder::class,
         ]);

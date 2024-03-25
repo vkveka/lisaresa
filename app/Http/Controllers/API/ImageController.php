@@ -32,19 +32,23 @@ class ImageController extends Controller
     public function store(StoreImageRequest $request)
     {
         $accomodation_id = $request->accomodation_id;
-        // on récupère le nombre d'images pour ce logement
         $imagesTotalForAccomodation = Image::where('accomodation_id', $request->accomodation_id)->count();
+        $imagesMaxIndexes = Image::where('accomodation_id', $request->accomodation_id)->pluck('index')->max();
 
         // on accède au tableau d'images transmises via le formulaire
         $images = $request->file('name');
+
         // on stocke les noms des images pour les renvoyer
         $imagesNames = [];
+
         if ($images) {
-            foreach ($images as $key => $image) {  // on boucle sur les images uploadées
+            $index = $imagesMaxIndexes + 1;
+            // $imagesTotalSize = 0;
+            foreach ($images as $key => $image) {
 
                 $imageName = $accomodation_id . "_" . $imagesTotalForAccomodation + $key + 1  . '.' . $image->getClientOriginalExtension();
-                // $imageInfos = getimagesize($imageName);
-                // $fileSize = round(filesize($image) / 1000);
+                // $fileSize = filesize($image) / 1000;
+                // $imagesTotalSize += $fileSize;
 
                 $destinationPath = public_path("images/accomodations/{$accomodation_id}");
                 if (!File::exists($destinationPath)) {
@@ -59,8 +63,10 @@ class ImageController extends Controller
 
                 Image::create([
                     'name' => $imageName,
+                    'index' => $index,
                     'accomodation_id' => $request->accomodation_id,
                 ]);
+                $index++;
             }
         }
 
@@ -91,6 +97,7 @@ class ImageController extends Controller
     public function update(UpdateImageRequest $request, Image $image)
     {
         $newImage = $request->file('name');
+        $newIndex = (int)$request->index;
 
         if ($newImage) {
             $imageName = pathinfo($image->name, PATHINFO_FILENAME) . '.' . $newImage->getClientOriginalExtension();
@@ -101,6 +108,35 @@ class ImageController extends Controller
 
             $image->update([
                 'name' => $imageName,
+            ]);
+        }
+
+        if ($newIndex) {
+            $getImagesIndexes = Image::all();
+
+            foreach ($getImagesIndexes as $getImageIndex) {
+                if ($newIndex > $image->index) {
+                    if ($getImageIndex->index > $image->index && $getImageIndex->index <= $newIndex) {
+                        $getImageIndex->update([
+                            'index' => $getImageIndex->index - 1,
+                        ]);
+                    }
+                    // si l'index récupéré est plus grand que le nouvel index, on ne fait rien
+                    // si l'index récupéré est plus petit que l'index initial de l'image, on ne fait rien
+                }
+                if ($newIndex < $image->index) {
+                    if ($getImageIndex->index >= $newIndex && $getImageIndex->index < $image->index) {
+                        $getImageIndex->update([
+                            'index' => $getImageIndex->index + 1,
+                        ]);
+                    }
+                    // si l'index récupéré est plus petit que le nouvel index, on ne fait rien
+                    // si l'index récupéré est plus grand que l'index initial de l'image, on ne fait rien
+                }
+            }
+
+            $image->update([
+                'index' => $newIndex,
             ]);
         }
 
