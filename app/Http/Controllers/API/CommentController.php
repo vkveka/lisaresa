@@ -21,7 +21,7 @@ class CommentController extends Controller
             'status' => true,
             'message' => 'Tous les commentaires ont été récupérés',
             'comments' => $comments,
-        ]);
+        ], 200);
     }
 
     /**
@@ -41,7 +41,7 @@ class CommentController extends Controller
             'status' => true,
             'message' => 'Le commentaire a bien été posté',
             'comment' => $comment
-        ]);
+        ], 201);
     }
 
     /**
@@ -49,7 +49,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        // $comment = Comment::with('user', 'accomodation')->find($comment->id);
+        // $comment->load('user', 'accomodation');
 
         // return response()->json([
         //     'status' => true,
@@ -71,7 +71,7 @@ class CommentController extends Controller
             'status' => true,
             'message' => 'Le commentaire a bien été modifié',
             'comment' => $comment
-        ]);
+        ], 200);
     }
 
     /**
@@ -85,6 +85,6 @@ class CommentController extends Controller
             'status' => true,
             'message' => 'Le commentaire a bien été supprimé',
             'comment' => $comment,
-        ]);
+        ], 200);
     }
 }

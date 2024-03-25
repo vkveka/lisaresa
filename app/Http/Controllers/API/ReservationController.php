@@ -15,13 +15,13 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::all();
+        $reservations = Reservation::with('accomodation', 'user')->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Les reservations ont bien été récupérées',
             'reservations' => $reservations,
-        ]);
+        ], 200);
     }
 
     /**
@@ -37,7 +37,7 @@ class ReservationController extends Controller
             'status' => true,
             'message' => 'La reservation a bien été créée',
             'reservations' => $reservation,
-        ]);
+        ], 201);
     }
 
     /**
@@ -45,13 +45,13 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        $reservation = Reservation::find($reservation->id);
+        $reservation->load('accomodation', 'user');
 
         return response()->json([
             'status' => true,
             'message' => 'La reservation a bien été récupérée',
             'reservations' => $reservation,
-        ]);
+        ], 200);
     }
 
     /**
@@ -67,7 +67,7 @@ class ReservationController extends Controller
             'status' => true,
             'message' => 'La reservation a bien été modifiée',
             'reservations' => $reservation,
-        ]);
+        ], 200);
     }
 
     /**
@@ -81,6 +81,6 @@ class ReservationController extends Controller
             'status' => true,
             'message' => 'La reservation a bien été supprimée',
             'reservations' => $reservation,
-        ]);
+        ], 200);
     }
 }

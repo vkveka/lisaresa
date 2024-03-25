@@ -21,7 +21,7 @@ class PaymentController extends Controller
             'status' => true,
             'message' => 'Les paiements ont été récupérés',
             'payments' => $payments,
-        ]);
+        ], 200);
     }
 
     /**
@@ -37,7 +37,7 @@ class PaymentController extends Controller
             'status' => true,
             'message' => 'Le paiement a été crée',
             'payments' => $payment,
-        ]);
+        ], 201);
     }
 
     /**
@@ -45,13 +45,13 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        $payment = Payment::with('user', 'reservation')->find($payment->id);
+        $payment->load('user', 'reservation');
 
         return response()->json([
             'status' => true,
             'message' => 'Le paiement a été récupéré',
             'payments' => $payment,
-        ]);
+        ], 200);
     }
 
     /**
@@ -67,7 +67,7 @@ class PaymentController extends Controller
             'status' => true,
             'message' => 'Le paiement a été modifié',
             'payments' => $payment,
-        ]);
+        ], 200);
     }
 
     /**
@@ -81,6 +81,6 @@ class PaymentController extends Controller
             'status' => true,
             'message' => 'Le paiement a été supprimé',
             'payments' => $payment,
-        ]);
+        ], 200);
     }
 }

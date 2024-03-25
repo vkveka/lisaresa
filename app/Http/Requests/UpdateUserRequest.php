@@ -23,9 +23,9 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstname' => 'nullable|max:40',
-            'lastname' => 'nullable|max:40',
-            'email' => 'nullable|email|max:50|unique:users',
+            'firstname' => 'nullable|max:40|min:3',
+            'lastname' => 'nullable|max:40|min:3',
+            'email' => 'nullable|email|max:50|unique:users|min:5|max:50',
             'oldPassword' => 'nullable',
             'password' => [
                 'nullable', 'confirmed',
@@ -35,27 +35,18 @@ class UpdateUserRequest extends FormRequest
                     ->numbers() // au moins un chiffre
                     ->symbols() // au moins un caractère spécial     
             ],
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:2048'
         ];
     }
 
     public function messages()
     {
         return [
-            'firstname.max' => 'Le champ \'Prénom\' ne doit pas dépasser :max caractères.',
-            'lastname.max' => 'Le champ \'Nom\' ne doit pas dépasser :max caractères.',
-            'email.email' => 'Veuillez fournir une adresse email valide.',
-            'email.max' => 'L\'adresse email ne doit pas dépasser :max caractères.',
-            'email.unique' => 'Cette adresse email est déjà utilisée.',
-            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
-            'password.min' => 'Le mot de passe doit contenir au moins :min caractères.',
-            'password.mixed_case' => 'Le mot de passe doit contenir des lettres majuscules et minuscules.',
-            'password.letters' => 'Le mot de passe doit contenir au moins une lettre.',
-            'password.numbers' => 'Le mot de passe doit contenir au moins un chiffre.',
-            'password.symbols' => 'Le mot de passe doit contenir au moins un caractère spécial.',
-            'image.image' => 'Le fichier doit être une image.',
-            'image.mimes' => 'Le fichier doit être de type : :values.',
-            'image.max' => 'La taille du fichier ne doit pas dépasser :max kilo-octets.',
+            'firstname' => 'Prénom',
+            'lastname' => 'Nom',
+            'image' => 'Image',
+            'email' => 'Email',
+            'password' => 'Mot de passe',
         ];
     }
 }

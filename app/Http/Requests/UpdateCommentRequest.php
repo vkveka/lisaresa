@@ -22,9 +22,9 @@ class UpdateCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'nullable|string|max:40',
-            'content' => 'nullable|string|max:1000',
-            'note' => 'nullable|integer|max:5',
+            'title' => 'nullable|string|max:40|min:3',
+            'content' => 'nullable|string|max:1000|min:3',
+            'note' => 'nullable|integer|max:5|min:1',
         ];
     }
 

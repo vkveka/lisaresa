@@ -33,25 +33,26 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user = User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
-
         if ($request->image) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->extension();
             $image->move(public_path('images/users'), $imageName);
-            $user->update([
-                'image' => $imageName
-            ]);
+        } else {
+            $imageName = 'user.png';
         }
+
+        $user = User::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'image' => $imageName,
+            'password' => $request->password,
+        ]);
+
 
         return response()->json([
             'status' => true,
-            'message' => 'Utilisateurs créé avec succès',
+            'message' => 'Utilisateur créé avec succès',
             'user' => $user,
         ], 201);
     }
@@ -62,15 +63,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // Rechercher l'utilisateur spécifique par son ID
-        $user = User::with('comments', 'favoris', 'reservations')->find($user->id);
-
-        if (!$user) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Utilisateur non trouvé',
-            ], 404);
-        }
+        $user->load('comments', 'favoris', 'reservations');
 
         return response()->json([
             'status' => true,
@@ -96,6 +89,7 @@ class UserController extends Controller
                     'password' => Hash::make($request->password)
                 ]);
             } else {
+                // erreur 400 => formulaire mal rempli. Erreur côté client
                 return response()->json(['Mot de passe actuel non renseigné ou incorrect'], 400);
             }
         }
@@ -125,7 +119,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-
         if ($user->image && File::exists(public_path("images/users/{$user->image}"))) {
             File::delete(public_path("images/users/{$user->image}"));
         }
@@ -136,6 +129,6 @@ class UserController extends Controller
             'status' => true,
             'message' => 'Utilisateur supprimé avec succès',
             'user' => $user,
-        ], 201);
+        ], 200);
     }
 }

@@ -23,8 +23,8 @@ class StoreReservationRequest extends FormRequest
     {
         return [
             'date_in' => 'required|date|after_or_equal:today',
-            'date_out' => 'required|date|after_or_equal:today',
-            'numero' => 'required|string|max:15',
+            'date_out' => 'required|date|after:date_in',
+            'numero' => 'required|string|max:15|min:10',
             'price' => 'required|numeric|max:9999.99',
         ];
     }

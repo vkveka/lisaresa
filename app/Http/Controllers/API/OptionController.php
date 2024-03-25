@@ -21,7 +21,7 @@ class OptionController extends Controller
             'status' => true,
             'message' => 'Toutes les options ont été récupérées',
             'options' => $options,
-        ]);
+        ], 200);
     }
 
     /**
@@ -37,7 +37,7 @@ class OptionController extends Controller
             'status' => true,
             'message' => 'L\'option a été ajoutée',
             'option' => $option,
-        ]);
+        ], 201);
     }
 
     /**
@@ -45,13 +45,11 @@ class OptionController extends Controller
      */
     public function show(Option $option)
     {
-        $option = Option::find($option->id);
-
         return response()->json([
             'status' => true,
             'message' => 'L\'option a été récupérée',
             'option' => $option,
-        ]);
+        ], 200);
     }
 
     /**
@@ -67,7 +65,7 @@ class OptionController extends Controller
             'status' => true,
             'message' => 'L\'option a été modifiée',
             'option' => $option,
-        ]);
+        ], 200);
     }
 
     /**
@@ -81,6 +79,6 @@ class OptionController extends Controller
             'status' => true,
             'message' => 'L\'option a été supprimée',
             'option' => $option,
-        ]);
+        ], 200);
     }
 }

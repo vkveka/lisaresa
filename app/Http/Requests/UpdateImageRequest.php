@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateReservationRequest extends FormRequest
+class UpdateImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,20 +22,16 @@ class UpdateReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_in' => 'nullable|date|after_or_equal:today',
-            'date_out' => 'nullable|date|after:date_in',
-            'numero' => 'nullable|string|max:15|min:10',
-            'price' => 'nullable|numeric|max:9999.99',
+            'name' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:10000',
+            'index' => 'integer',
+            'accomodation_id' => 'integer',
         ];
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         return [
-            'date_in' => 'Date d\'arrivée',
-            'date_out' => 'Date de départ',
-            'numero' => 'Numéro de réservation',
-            'price' => 'Coût de la réservation',
+            'name' => '\'Nom\'',
         ];
     }
 }

@@ -5,9 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Models\Accomodation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreAccomodationRequest;
 use App\Http\Requests\UpdateAccomodationRequest;
-use Illuminate\Support\Facades\Validator;
 
 class AccomodationController extends Controller
 {
@@ -59,12 +60,12 @@ class AccomodationController extends Controller
      */
     public function show(Accomodation $accomodation)
     {
-        $accomodations = Accomodation::with('comments', 'images', 'options')->find($accomodation->id);
+        $accomodation->load('comments', 'images', 'options');
 
         return response()->json([
             'status' => true,
             'message' => 'Logement récupéré avec succès',
-            'accomodations' => $accomodations,
+            'accomodations' => $accomodation,
         ], 200);
     }
 
@@ -81,7 +82,7 @@ class AccomodationController extends Controller
             'status' => true,
             'message' => 'Logement modifié avec succès',
             'accomodation' => $accomodation,
-        ], 201);
+        ], 200);
     }
 
     /**
@@ -89,12 +90,16 @@ class AccomodationController extends Controller
      */
     public function destroy(Accomodation $accomodation)
     {
+        if (File::exists(public_path("images/accomodations/{$accomodation->id}"))) {
+            File::deleteDirectory(public_path("images/accomodations/{$accomodation->id}"));
+        }
+
         $accomodation->delete();
 
         return response()->json([
             'status' => true,
             'message' => 'Le logement a bien été supprimé',
             'accomodation' => $accomodation,
-        ]);
+        ], 200);
     }
 }
