@@ -1,0 +1,7 @@
+Rediriger vers home si route login ou register si déjà connecté (USER && ADMIN)
+
+deconnecté si compte supprimé
+
+Method SHOW de User accessible au user connecté ?
+
+Suppression du commentaire par user impossible après une semaine
