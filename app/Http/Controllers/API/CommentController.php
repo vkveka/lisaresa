@@ -57,10 +57,10 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        if (Auth::user() && ((Auth::user()->role_id != 1 && $comment->created_at->addDays(7)->isFuture()) || Auth::user()->role_id == 1)) {
-
+        if (Auth::user() && ((Auth::user()->id == $comment->user_id && $comment->created_at->addDays(7)->isFuture()) || Auth::user()->role_id == 1)) {
             $comment->update(
-                $request->all()
+                $request->all() 
+                // updated_at ?
             );
             return response()->json([
                 'status' => true,

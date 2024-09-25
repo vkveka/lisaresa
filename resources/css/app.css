@@ -1,0 +1,9 @@
+#app {
+    background: url(../../public/images/default_picture_4_dark.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* overflow: hidden; */
+    /* height: 100vh; */
+}

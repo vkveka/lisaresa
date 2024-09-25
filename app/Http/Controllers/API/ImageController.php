@@ -124,7 +124,7 @@ class ImageController extends Controller
         }
 
         if ($newIndex) {
-            $getImagesIndexes = Image::all();
+            $getImagesIndexes = Image::where('accomodation_id', $image->accomodation_id)->get();
 
             foreach ($getImagesIndexes as $getImageIndex) {
                 if ($newIndex > $image->index) {
@@ -164,6 +164,15 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
+        $getImagesIndexes = Image::where('accomodation_id', $image->accomodation_id)
+            ->where('index', '>', $image->index)
+            ->get();
+
+        foreach ($getImagesIndexes as $imageIndex) {
+            $imageIndex->update([
+                'index' => $imageIndex->index - 1,
+            ]);
+        }
         if ($image->name && File::exists(public_path("images/accomodations/{$image->accomodation_id}/{$image->name}"))) {
             File::delete(public_path("images/accomodations/{$image->accomodation_id}/{$image->name}"));
         }

@@ -18,12 +18,26 @@ class LoginController extends Controller
             $authUser = User::find(Auth::user()->id);
             $authUser->load('role');
 
-            return response()->json([$authUser, 'Vous êtes connecté']);
+            return response()->json([
+                "user" => $authUser,
+                "message" => 'Vous êtes connecté'
+            ]);
         } else {
             return response()->json([
                 'Echec de la connexion',
                 'errors' => 'L\'utilisateur n\'existe pas ou le mot de passe est incorrect'
             ]);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        // déconnecte de la session en cours et invalide le token du cookie de session
+        Auth::guard('web')->logout();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Déconnexion réussie'
+        ]);
     }
 }

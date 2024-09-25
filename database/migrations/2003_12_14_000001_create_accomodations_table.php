@@ -20,15 +20,14 @@ return new class extends Migration
             $table->tinyInteger('dispo');
             // $table->boolean('dispo');
             $table->string('address', 200);
-            $table->string('cp', 20);
-            $table->string('city', 50);
-            $table->string('country', 20);
             $table->float('superficy', 5, 2);
             $table->integer('rooms');
             $table->integer('beds');
             $table->integer('persons');
             $table->float('note', 2, 1)->nullable();
             $table->timestamps();
+
+            $table->foreignId('location_id')->constrained()->onDelete('cascade');
         });
     }
 

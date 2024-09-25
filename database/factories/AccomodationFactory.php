@@ -23,14 +23,15 @@ class AccomodationFactory extends Factory
             'price' => $this->faker->randomFloat(2, 150, 1500),
             'dispo' => rand(1, 2),
             'address' => $this->faker->streetAddress(),
-            'cp' => $this->faker->postcode(),
-            'city' =>  $this->faker->randomElement(['Paris', 'Etiolles']),
-            'country' => 'France',
+            // 'cp' => $this->faker->postcode(),
+            // 'city' =>  $this->faker->randomElement(['Paris', 'Etiolles']),
+            // 'country' => 'France',
             'superficy' => $this->faker->randomFloat(2, 25, 400),
             'rooms' => rand(0, 5),
             'beds' => rand(1, 10),
             'persons' => rand(1, 10),
             'note' => $this->faker->randomFloat(2, 1, 5),
+            'location_id' => rand(0, 35000)
         ];
     }
 }
