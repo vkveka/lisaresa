@@ -49,24 +49,20 @@ class AccomodationController extends Controller
         //     })->groupBy('accomodations.id')->get();
 
 
-        $accomodations = DB::table('accomodations')
-            ->select('accomodations.*')
+        $accomodations = Accomodation::with('comments', 'images', 'options')
             ->where('location_id', $location_id)
-            ->whereNotExists(function ($query) use ($date_in, $date_out) {
-                $query->select(DB::raw(1))
-                    ->from('reservations')
-                    ->whereRaw('reservations.accomodation_id = accomodations.id')
-                    ->where(function ($query) use ($date_in, $date_out) {
-                        $query->whereBetween('reservations.date_in', [$date_in, $date_out])
-                            ->orWhereBetween('reservations.date_out', [$date_in, $date_out])
-                            ->orWhere(function ($query) use ($date_in, $date_out) {
-                                $query->where('reservations.date_in', '<=', $date_in)
-                                    ->where('reservations.date_out', '>=', $date_out);
-                            });
-                    });
+            ->whereDoesntHave('reservations', function ($query) use ($date_in, $date_out) {
+                $query->where(function ($query) use ($date_in, $date_out) {
+                    $query->whereBetween('date_in', [$date_in, $date_out])
+                        ->orWhereBetween('date_out', [$date_in, $date_out])
+                        ->orWhere(function ($query) use ($date_in, $date_out) {
+                            $query->where('date_in', '<=', $date_in)
+                                ->where('date_out', '>=', $date_out);
+                        });
+                });
             })
-            ->groupBy('accomodations.id')
             ->get();
+
 
         return response()->json([
             'status' => true,

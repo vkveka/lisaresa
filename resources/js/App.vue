@@ -1,10 +1,10 @@
 <template>
-    <main>
+    <Navbar class="mb-5"></Navbar>
+    <main class="p-5">
         <div v-if="$route.path !== '/'">
             <router-view v-bind:key="$route.fullPath"></router-view>
         </div>
         <div v-else>
-            <Navbar></Navbar>
             <HomeSearch></HomeSearch>
         </div>
     </main>
@@ -18,14 +18,8 @@ import HomeSearch from './components/HomeSearch.vue';
 <style scoped>
 .container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-#logo {
-    max-width: 50%;
+    margin-top: 100px;
 }
 
 .parentSearchInput {

@@ -35,10 +35,11 @@
             <!-- <i v-if="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
             <span v-if="!isLoading">Publier</span> -->
         </form>
-
-        <AccomodationFromSearch v-for="accomodation in showAccomodations" :key="accomodation.id"
-            :accomodation="accomodation">
-        </AccomodationFromSearch>
+        <div class="d-flex gap-5 pb-5">
+            <AccomodationFromSearch v-for="accomodation in showAccomodations" :key="accomodation.id"
+                :accomodation="accomodation" @click="goToAccomodationDetails(accomodation)">
+            </AccomodationFromSearch>
+        </div>
 
     </div>
 </template>
@@ -48,7 +49,11 @@
 import { ref, computed } from 'vue';
 import axios from 'axios';
 import AccomodationFromSearch from './AccomodationFromSearch.vue';
+import { useRouter } from 'vue-router';
+import { useAccomodationStore } from '../stores/accomodationStore';
 
+const accomodationStore = useAccomodationStore();
+const router = useRouter();
 const searchQuery = ref('');
 const cities = ref(null);
 const citiesList = ref(null);
@@ -61,6 +66,11 @@ const range = ref({
     end: new Date(),
 });
 const showAccomodations = ref(null);
+
+const goToAccomodationDetails = (accomodation) => {
+    accomodationStore.setSelectedAccomodation(accomodation);
+    router.push({ name: 'AccomodationDetails', params: { id: accomodation.id } });
+};
 
 const logSelectedDate = () => {
     // console.log('range.value.start :>> ', range.value.start);
@@ -93,7 +103,6 @@ const selectCity = (name, id) => {
     searchQuery.value = name;
     villeId.value = id;
     cities.value = null
-    // console.log(searchQuery);
 }
 
 const resetList = () => {
@@ -104,27 +113,43 @@ const hideDatePicker = () => {
     showDatePicker.value && (showDatePicker.value = null);
 }
 
+// const searchAccomodations = () => {
+//     const dateIn = new Date(range.value.start)
+//     const dateOut = new Date(range.value.end)
+//     const locationId = villeId.value
+//     console.log('dateIn :>> ', dateIn);
+//     console.log('dateOut :>> ', dateOut);
+
+//     axios.get('/api/accomodations/search', {
+//         params: {
+//             date_in: dateIn,
+//             date_out: dateOut,
+//             location_id: locationId
+//         }
+//     }).then((res) => {
+//         showAccomodations.value = res.data.accomodations
+//         console.log(res.data);
+
+//     }).catch((err) => {
+//         console.log(err);
+//     })
+// }
+
 const searchAccomodations = () => {
-    const dateIn = new Date(range.value.start)
-    const dateOut = new Date(range.value.end)
-    const locationId = villeId.value
-    console.log('dateIn :>> ', dateIn);
-    console.log('dateOut :>> ', dateOut);
+    const dateIn = new Date(range.value.start).toISOString().split('T')[0]; // Format YYYY-MM-DD
+    const dateOut = new Date(range.value.end).toISOString().split('T')[0]; // Format YYYY-MM-DD
+    const locationId = villeId.value;
 
-    axios.get('/api/accomodations/search', {
-        params: {
+    // Redirection vers la page des logements
+    router.push({
+        name: 'AccomodationsList',
+        query: {
+            location_id: locationId,
             date_in: dateIn,
-            date_out: dateOut,
-            location_id: locationId
+            date_out: dateOut
         }
-    }).then((res) => {
-        showAccomodations.value = res.data.accomodations
-        console.log(res.data);
-
-    }).catch((err) => {
-        console.log(err);
-    })
-}
+    });
+};
 </script>
 <style scoped>
 .container {
@@ -132,7 +157,6 @@ const searchAccomodations = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
 }
 
 #logo {

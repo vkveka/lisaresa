@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'lastname' => 'admin',
             'email' => 'admin@admin.fr',
             'password' => Hash::make('Azerty99@'),
-            'image' => 'user.png',
+            'image' => 'loader.png',
             'remember_token' => Str::random(10),
             'role_id' => 1,
         ]);
