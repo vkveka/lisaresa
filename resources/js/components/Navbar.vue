@@ -24,7 +24,7 @@
                                 class="dropdown-toggle" alt="image user non connecté" width="40px"> -->
                             <ul class="dropdown-menu">
                                 <li>
-                                    <router-link>Mon
+                                    <router-link to="/">Mon
                                         Compte</router-link>
                                 </li>
                                 <li><router-link class="dropdown-item" to="/logout"

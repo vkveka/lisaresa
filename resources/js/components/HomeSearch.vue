@@ -35,24 +35,15 @@
             <!-- <i v-if="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
             <span v-if="!isLoading">Publier</span> -->
         </form>
-        <div class="d-flex gap-5 pb-5">
-            <AccomodationFromSearch v-for="accomodation in showAccomodations" :key="accomodation.id"
-                :accomodation="accomodation" @click="goToAccomodationDetails(accomodation)">
-            </AccomodationFromSearch>
-        </div>
-
     </div>
 </template>
 
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import axios from 'axios';
-import AccomodationFromSearch from './AccomodationFromSearch.vue';
 import { useRouter } from 'vue-router';
-import { useAccomodationStore } from '../stores/accomodationStore';
 
-const accomodationStore = useAccomodationStore();
 const router = useRouter();
 const searchQuery = ref('');
 const cities = ref(null);
@@ -60,25 +51,22 @@ const citiesList = ref(null);
 const showDatePicker = ref(false);
 const villeId = ref(null);
 const selectedDate = ref(null);
-const persons = ref(null);
+const persons = ref(0);
 const range = ref({
     start: new Date(),
     end: new Date(),
 });
-const showAccomodations = ref(null);
-
-const goToAccomodationDetails = (accomodation) => {
-    accomodationStore.setSelectedAccomodation(accomodation);
-    router.push({ name: 'AccomodationDetails', params: { id: accomodation.id } });
-};
 
 const logSelectedDate = () => {
     // console.log('range.value.start :>> ', range.value.start);
     const start = new Date(range.value.start)
     const end = new Date(range.value.end)
+    // console.log(start);
+    // console.log(end);
     const formattedDateStart = start.toLocaleDateString('fr-FR');
     const formattedDateEnd = end.toLocaleDateString('fr-FR');
     selectedDate.value = 'Du ' + formattedDateStart + ' au ' + formattedDateEnd;
+    // console.log(selectedDate.value);
 };
 
 const searchCities = () => {
@@ -88,7 +76,6 @@ const searchCities = () => {
         })
             .then(response => {
                 cities.value = response.data.locations;
-                // console.log(response.data.locations);
             })
             .catch(error => {
                 console.error(error);
@@ -113,40 +100,29 @@ const hideDatePicker = () => {
     showDatePicker.value && (showDatePicker.value = null);
 }
 
-// const searchAccomodations = () => {
-//     const dateIn = new Date(range.value.start)
-//     const dateOut = new Date(range.value.end)
-//     const locationId = villeId.value
-//     console.log('dateIn :>> ', dateIn);
-//     console.log('dateOut :>> ', dateOut);
-
-//     axios.get('/api/accomodations/search', {
-//         params: {
-//             date_in: dateIn,
-//             date_out: dateOut,
-//             location_id: locationId
-//         }
-//     }).then((res) => {
-//         showAccomodations.value = res.data.accomodations
-//         console.log(res.data);
-
-//     }).catch((err) => {
-//         console.log(err);
-//     })
-// }
-
 const searchAccomodations = () => {
-    const dateIn = new Date(range.value.start).toISOString().split('T')[0]; // Format YYYY-MM-DD
-    const dateOut = new Date(range.value.end).toISOString().split('T')[0]; // Format YYYY-MM-DD
-    const locationId = villeId.value;
+    const dateIn = new Date(range.value.start).toISOString().split('T')[0];
+    const dateOut = new Date(range.value.end).toISOString().split('T')[0];
 
+    const locationId = villeId.value;
+    const nbPersons = persons.value;
+    const search_query = searchQuery.value
+    console.log({
+        location_id: locationId,
+        date_in: dateIn,
+        date_out: dateOut,
+        persons: nbPersons,
+        search_query: search_query,
+    });
     // Redirection vers la page des logements
     router.push({
         name: 'AccomodationsList',
         query: {
             location_id: locationId,
             date_in: dateIn,
-            date_out: dateOut
+            date_out: dateOut,
+            persons: nbPersons,
+            search_query: search_query,
         }
     });
 };

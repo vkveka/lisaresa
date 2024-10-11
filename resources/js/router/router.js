@@ -33,7 +33,6 @@ const router = createRouter({
             path: '/accomodations',
             name: 'AccomodationsList',
             component: AccomodationsList,
-            props: true
         },
         {
             path: '/logout',

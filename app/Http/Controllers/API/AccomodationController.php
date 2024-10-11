@@ -40,17 +40,12 @@ class AccomodationController extends Controller
         $location_id = $request->location_id;
         $date_in = $request->date_in;
         $date_out = $request->date_out;
-
-        // $accomodations = DB::table('accomodations')->select('accomodations.*')
-        //     ->where('location_id', $location_id)
-        //     ->join('reservations', function (JoinClause $join) use ($date_in, $date_out) {
-        //         $join->on('accomodations.id', '=', 'reservations.accomodation_id')
-        //             ->where('reservations.date_in', '>', $date_out)->orWhere('reservations.date_out', '<', $date_in);
-        //     })->groupBy('accomodations.id')->get();
-
+        $options = $request->options;
+        $nbPersons = $request->persons;
 
         $accomodations = Accomodation::with('comments', 'images', 'options')
             ->where('location_id', $location_id)
+            ->where('persons', '>=', $nbPersons)
             ->whereDoesntHave('reservations', function ($query) use ($date_in, $date_out) {
                 $query->where(function ($query) use ($date_in, $date_out) {
                     $query->whereBetween('date_in', [$date_in, $date_out])
@@ -61,14 +56,26 @@ class AccomodationController extends Controller
                         });
                 });
             })
+            ->when($options, function ($query) use ($options) {
+                // Filtrer les logements qui ont **toutes** les options sélectionnées
+                $query->whereHas('options', function ($query) use ($options) {
+                    $query->whereIn('id', $options);
+                }, '=', count($options)); // Assure que toutes les options sont présentes
+            })
             ->get();
 
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Logements récupérés avec succès',
-            'accomodations' => $accomodations,
-        ], 200);
+        if ($accomodations) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Logements récupérés avec succès',
+                'accomodations' => $accomodations,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Pas de logement disponible.'
+            ]);
+        }
     }
 
     /**
