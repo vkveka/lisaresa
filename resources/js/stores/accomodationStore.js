@@ -2,11 +2,15 @@ import { defineStore } from 'pinia';
 
 export const useAccomodationStore = defineStore('accomodation', {
     state: () => ({
-        selectedAccomodation: null
+        selectedAccomodation: null,
+        accomodations: [],
     }),
     actions: {
-        setSelectedAccomodation(accomodation) {
-            this.selectedAccomodation = accomodation;
+        async setSelectedAccomodation(id) {
+            const response = await fetch(`/api/accomodations/${id}`);
+            const accomodation = await response.json();
+            this.selectedAccomodation = accomodation.accomodations;
+            return accomodation;
         }
     }
 });

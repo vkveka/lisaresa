@@ -1,8 +1,15 @@
 <template>
-    <div v-if="accomodation">
-        <div class="image-container">
+    <div v-if="accomodation" class="bg-secondary">
+        <div class="image-container d-flex" flex-wrap v-if="accomodation.images && accomodation.images.length > 0">
             <img :src="'/images/accomodations/' + accomodation.id + '/' + accomodation.images[0].name"
                 alt="Logement Lisaresa" />
+            <div v-for="(image, index) in accomodation.images.slice(1, 7)" :key="image.id">
+                <img class="col-4" :src="'/images/accomodations/' + accomodation.id + '/' + image.name"
+                    alt="Logement Lisaresa" />
+            </div>
+        </div>
+        <div v-else>
+            <img src="../../../public/images/user.png" alt="No image available" />
         </div>
         <div class="details-container">
             <h1>{{ accomodation.name }}</h1>
@@ -12,48 +19,56 @@
             <p class="description">{{ accomodation.description }}</p>
         </div>
     </div>
+    <div v-else>
+        <p>Loading...</p>
+    </div>
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { ref, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAccomodationStore } from '../stores/accomodationStore';
-
+const route = useRoute();
 const accomodationStore = useAccomodationStore();
-const accomodation = computed(() => accomodationStore.selectedAccomodation);
+const accomodation = ref(null);
 
+onMounted(async () => {
+    const accomodationId = route.params.id;
+    if (accomodationStore.selectedAccomodation && accomodationStore.selectedAccomodation.id === parseInt(accomodationId)) {
+        accomodation.value = accomodationStore.selectedAccomodation;
+    } else {
+        const response = await accomodationStore.setSelectedAccomodation(accomodationId);
+        accomodation.value = response.accomodations;
+    }
+});
 </script>
 
 
 
 
 <style scoped>
-/* Global container taking the full screen */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
     height: 100vh;
-    /* Full height of the viewport */
     width: 100vw;
-    /* Full width of the viewport */
     background-color: #f5f5f5;
-    /* Light background for a clean design */
     padding: 20px;
     box-sizing: border-box;
 }
 
-/* Image container */
 .image-container {
-    width: 100%;
-    max-width: 800px;
-    /* Limit the width for large screens */
+    max-width: 100vw;
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 20px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    /* Soft shadow for the image */
+}
+
+.othersImages img {
+    max-width: 300px;
 }
 
 .image-container img {
@@ -64,7 +79,6 @@ const accomodation = computed(() => accomodationStore.selectedAccomodation);
     object-fit: cover;
 }
 
-/* Details container with all the accomodation info */
 .details-container {
     text-align: center;
     max-width: 800px;
@@ -73,10 +87,8 @@ const accomodation = computed(() => accomodationStore.selectedAccomodation);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    /* Soft shadow for the info box */
 }
 
-/* Title of the accomodation */
 .details-container h1 {
     font-size: 2rem;
     margin-bottom: 10px;
@@ -84,14 +96,12 @@ const accomodation = computed(() => accomodationStore.selectedAccomodation);
     font-weight: 600;
 }
 
-/* Price tag */
 .price span {
     font-size: 1.5rem;
     color: #28a745;
     font-weight: 500;
 }
 
-/* Description of the accomodation */
 .description {
     font-size: 1rem;
     color: #666;
@@ -100,7 +110,6 @@ const accomodation = computed(() => accomodationStore.selectedAccomodation);
     text-align: justify;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .container {
         padding: 10px;

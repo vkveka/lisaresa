@@ -58,7 +58,8 @@ class ImageController extends Controller
                 // Incrémente de 1 le nombre d'images correspondantes au logement
                 // $imageName = $accomodation_id . "_" . $imagesTotalForAccomodation + $key + 1  . '.' . $image->getClientOriginalExtension();
 
-                $imageName = $accomodation_id . "_" . time() . '.' . $image->getClientOriginalExtension();
+                $imageName = $accomodation_id . "_" . time() . $key . '.' . $image->getClientOriginalExtension();
+                // dd($imageName);
                 // $fileSize = filesize($image) / 1000;
                 // $imagesTotalSize += $fileSize;
 

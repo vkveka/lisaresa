@@ -41,28 +41,34 @@
                 <div class="collapse w-100 mt-3" id="collapseExample" style="left:0">
                     <div class="card card-body">
                         <div class="typeAccomodation mb-3">
+
                             <div class=" d-flex justify-content-between ">
                                 <h3>Type d'hébergement</h3>
                                 <div class="d-flex align-items-center">
                                     <a href="#" style="color: red;" class="me-5" @click="clearInputs">Effacer</a>
                                     <button type="button" class="btn btn-outline-dark"
-                                        @click="searchAccomodations(); showCollapse()">Enregistrer les
+                                        @click="searchAccomodations();">Enregistrer les
                                         modifications</button>
                                 </div>
                             </div>
+
                             <span>
                                 <input type="radio" class="btn-check" name="options-outlined" id="spanTypeHouse"
-                                    autocomplete="off">
+                                    autocomplete="off" value="maison" v-model="selectedAccomodationType">
                                 <label class="btn btn-outline-secondary me-1" for="spanTypeHouse">Maison</label>
                             </span>
                             <span>
                                 <input type="radio" class="btn-check" name="options-outlined" id="spanTypeFlat"
-                                    autocomplete="off">
+                                    autocomplete="off" value="appartement" v-model="selectedAccomodationType">
                                 <label class="btn btn-outline-secondary me-1" for="spanTypeFlat">Appartement</label>
                             </span>
 
                         </div>
-                        <div>
+                        <div class="price mt-3">
+                            <a-slider v-model:value="value2" range :min="0" :max="3000" />
+                        </div>
+
+                        <div class="mt-3">
                             <h3>Plus de filtres</h3>
                             <div class="parentSpan">
                                 <span v-for="(option) in options" :key="option.id">
@@ -82,7 +88,7 @@
 </template>
 <script setup>
 import axios from 'axios';
-import { ref, defineEmits } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const props = defineProps({
     initialSearchQuery: String,
@@ -90,11 +96,14 @@ const props = defineProps({
     initialPersons: [Number, String],
     initialLocationId: [Number, String],
 });
+// console.log(props);
 const range = ref({
     start: new Date(props.initialDates.start),
     end: new Date(props.initialDates.end),
 });
-
+const minPriceInput = ref(0);
+const maxPriceInput = ref(3000);
+const value2 = ref([minPriceInput.value, maxPriceInput.value]);
 const checkedInputs = ref([]);
 const cities = ref(null);
 const citiesList = ref(null);
@@ -102,6 +111,8 @@ const showDatePicker = ref(false);
 const accomodations = ref([]);
 const options = ref([]);
 const router = useRouter();
+const selectedAccomodationType = ref(null);
+
 
 const formatDate = (dateIn, dateOut) => {
     dateIn = new Date(dateIn)
@@ -127,17 +138,11 @@ const clearInputs = () => {
     console.log(checkedInputs.value);
 }
 
-const showCollapse = () => {
-    const collapseElement = document.querySelector('.collapse.show');
-    if (collapseElement) {
-        collapseElement.classList.remove('show')
-    }
-}
-
 const searchQuery = ref(props.initialSearchQuery || '');
 const selectedDate = ref(props.initialDates ? `${formatDate(props.initialDates.start, props.initialDates.end)}` : '');
 const persons = ref(parseInt(props.initialPersons) || 0);
 const villeId = ref(props.initialLocationId || 0);
+
 
 // Création d'un émetteur pour envoyer les données au parent
 const emit = defineEmits(['searchResults']);
@@ -149,7 +154,10 @@ const searchAccomodations = () => {
     const locationId = villeId.value
     const nbPersons = persons.value
     const optionIds = checkedInputs.value.map(option => option.id);
-
+    const typeAccomodation = selectedAccomodationType.value
+    console.log(minPriceInput.value);
+    console.log(maxPriceInput.value);
+    const collapseElement = document.querySelector('.collapse.show');
     axios.get('/api/accomodations/search', {
         params: {
             date_in: dateIn.toISOString(),
@@ -157,10 +165,26 @@ const searchAccomodations = () => {
             location_id: locationId,
             persons: nbPersons,
             options: optionIds,
+            type_accomodation: typeAccomodation,
+            min_price: minPriceInput.value,
+            max_price: maxPriceInput.value,
         }
     })
         .then((res) => {
-            accomodations.value = res.data.accomodations
+            if (collapseElement) {
+                collapseElement.classList.remove('show')
+            }
+            const accomodationsList = res.data.accomodations;
+            accomodations.value = accomodationsList
+
+            if (accomodationsList.value) {
+                const prices = res.data.accomodations.map(accomodation => accomodation.price);
+                minPriceInput.value = Math.min(...prices);
+                maxPriceInput.value = Math.max(...prices);
+                value2.value = [minPriceInput.value, maxPriceInput.value];
+
+
+            }
             emit('searchResults', res.data.accomodations)
         })
         .catch((err) => {
@@ -168,6 +192,34 @@ const searchAccomodations = () => {
         });
 }
 
+watch(value2, (newVal, oldVal) => {
+    let [newMin, newMax] = newVal;
+    let [oldMin, oldMax] = oldVal;
+
+    // Empêcher que la valeur min dépasse max et vice-versa avec un écart minimal de 10
+    const minGap = 100;
+
+    // Si aucune modification n'est nécessaire, ne rien faire pour éviter la boucle infinie
+    if (newMin === oldMin && newMax === oldMax) return;
+
+    if (newMin >= newMax - minGap) {
+        newMin = newMax - minGap;
+    }
+
+    // Mise à jour des variables uniquement si elles changent réellement
+    if (newMin !== minPriceInput.value) {
+        minPriceInput.value = newMin;
+    }
+
+    if (newMax !== maxPriceInput.value) {
+        maxPriceInput.value = newMax;
+    }
+
+    // Mettre à jour le slider uniquement si nécessaire pour éviter la boucle infinie
+    if (newMin !== value2.value[0] || newMax !== value2.value[1]) {
+        value2.value = [newMin, newMax];
+    }
+});
 const logSelectedDate = () => {
     const start = new Date(range.value.start)
     const end = new Date(range.value.end)

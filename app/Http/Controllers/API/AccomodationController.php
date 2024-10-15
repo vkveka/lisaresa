@@ -42,6 +42,10 @@ class AccomodationController extends Controller
         $date_out = $request->date_out;
         $options = $request->options;
         $nbPersons = $request->persons;
+        $type_accomodation = $request->type_accomodation;
+        $min_price = $request->min_price;
+        $max_price = $request->max_price;
+
 
         $accomodations = Accomodation::with('comments', 'images', 'options')
             ->where('location_id', $location_id)
@@ -57,10 +61,15 @@ class AccomodationController extends Controller
                 });
             })
             ->when($options, function ($query) use ($options) {
-                // Filtrer les logements qui ont **toutes** les options sélectionnées
                 $query->whereHas('options', function ($query) use ($options) {
                     $query->whereIn('id', $options);
-                }, '=', count($options)); // Assure que toutes les options sont présentes
+                }, '=', count($options));
+            })
+            ->when($type_accomodation, function ($query) use ($type_accomodation) {
+                $query->where('type', $type_accomodation);
+            })
+            ->when((isset($min_price) && $min_price !== 0) && (isset($max_price) && $max_price !== 0), function ($query) use ($min_price, $max_price) {
+                $query->whereBetween('price', [$min_price, $max_price]);
             })
             ->get();
 

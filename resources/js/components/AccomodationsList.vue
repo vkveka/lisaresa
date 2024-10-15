@@ -5,10 +5,13 @@
             :initial-dates="{ start: $route.query.date_in, end: $route.query.date_out }"
             :initial-persons="$route.query.persons" :initial-location-id="$route.query.location_id">
         </InputSearch>
-        <div class="d-flex gap-3 mt-5 pt-5 flex-wrap justify-content-center">
+        <div class="d-flex gap-3 mt-5 pt-5 flex-wrap justify-content-center" v-if="accomodations.length > 0">
             <AccomodationFromSearch v-for="accomodation in accomodations" :key="accomodation.id"
-                :accomodation="accomodation" @click="goToAccomodationDetails(accomodation)">
+                :accomodation="accomodation">
             </AccomodationFromSearch>
+        </div>
+        <div class="d-flex gap-3 mt-5 pt-5 flex-wrap justify-content-center text-light" v-else>
+            <span>Pas de logement disponible</span>
         </div>
     </div>
 </template>
@@ -27,7 +30,8 @@ const handleSearchResults = (results) => {
 };
 
 const accomodations = ref([]);
-
+const minPriceInput = ref(0);
+const maxPriceInput = ref(0);
 // Récupérer les paramètres de la requête
 const fetchAccomodations = async () => {
     const locationId = parseInt(route.query.location_id);
@@ -45,18 +49,16 @@ const fetchAccomodations = async () => {
             },
         });
         accomodations.value = res.data.accomodations;
-        // console.log(res.data);
+        const prices = res.data.accomodations.map(accomodation => accomodation.price);
+        minPriceInput.value = Math.min(...prices);
+        maxPriceInput.value = Math.max(...prices);
     } catch (error) {
         console.error(error);
     }
 };
 fetchAccomodations();
 
-// déclenche au click d'un logement
-const goToAccomodationDetails = async (accomodation) => {
-    return
-    router.push({ name: 'AccomodationDetails', params: { id: accomodation.id } })
-}
+
 
 </script>
 <style scoped>

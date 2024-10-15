@@ -1,5 +1,5 @@
 <template>
-    <Navbar class="mb-5"></Navbar>
+    <Navbar></Navbar>
     <main class="">
         <div v-if="$route.path !== '/'">
             <router-view v-bind:key="$route.fullPath"></router-view>

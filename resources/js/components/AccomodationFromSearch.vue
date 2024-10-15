@@ -1,7 +1,8 @@
 <template>
     <div>
         <!-- <router-link :to="{ name: 'AccomodationDetails', params: { id: accomodation.id } }" style="text-decoration: none;"> -->
-        <div class="card" style="width: 350px;border: none; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+        <div class="card" style="width: 350px;border: none; border-top-left-radius: 5px; border-top-right-radius: 5px;"
+            @click="goToAccomodationDetails(accomodation)">
             <div class="card-content">
                 <div class="card-body d-flex flex-column p-0 m-0" style=" border: 0 solid transparent;">
                     <img :src="'./images/accomodations/' + accomodation.id + '/' + accomodation.images[0].name"
@@ -24,6 +25,12 @@
 </template>
 <script setup>
 import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAccomodationStore } from '../stores/accomodationStore';
+
+const accomodationStore = useAccomodationStore();
+
+const router = useRouter();
 
 defineProps({
     accomodation: {
@@ -31,6 +38,12 @@ defineProps({
         required: true,
     }
 });
+
+// déclenche au click d'un logement
+const goToAccomodationDetails = async (accomodation) => {
+    accomodationStore.selectedAccomodation = accomodation;
+    await router.push({ name: 'AccomodationDetails', params: { id: accomodation.id } });
+};
 
 </script>
 <style scoped>
@@ -49,5 +62,14 @@ defineProps({
     white-space: nowrap;
     width: 90%;
     display: inline-block;
+}
+
+.card {
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px white;
 }
 </style>
