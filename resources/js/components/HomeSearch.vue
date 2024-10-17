@@ -135,6 +135,8 @@ const searchAccomodations = () => {
     align-items: center;
 }
 
+
+
 #logo {
     max-width: 50%;
 }

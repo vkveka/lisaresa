@@ -67,9 +67,10 @@ const goToAccomodationDetails = async (accomodation) => {
 .card {
     transition: 0.2s;
     cursor: pointer;
+    box-shadow: 0 0 5px rgb(189, 189, 189)
 }
 
 .card:hover {
-    box-shadow: 0 0 20px white;
+    box-shadow: 0 0 20px rgb(168, 168, 168);
 }
 </style>

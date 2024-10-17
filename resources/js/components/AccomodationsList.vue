@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex gap-4 pb-5 flex-column">
+    <div class="d-flex gap-4 pb-5 flex-column mx-auto" style="max-width: 1500px;">
         <InputSearch @searchResults="handleSearchResults" class="position-fixed" style="z-index: 1; left:50px"
             :initial-search-query="$route.query.search_query"
             :initial-dates="{ start: $route.query.date_in, end: $route.query.date_out }"

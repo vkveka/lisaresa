@@ -4,7 +4,7 @@
         <div v-if="$route.path !== '/'">
             <router-view v-bind:key="$route.fullPath"></router-view>
         </div>
-        <div v-else>
+        <div v-else class="homeSearchComponent">
             <HomeSearch></HomeSearch>
         </div>
     </main>
@@ -16,10 +16,21 @@ import HomeSearch from './components/HomeSearch.vue';
 </script>
 
 <style scoped>
+.homeSearchComponent {
+    margin: 0 !important;
+    height: 100vh;
+    width: 100vw;
+    background: url('./images/default_picture_4_dark.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    padding-top: 100px;
 }
 
 .parentSearchInput {

@@ -10,7 +10,7 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedState';
 import axio from 'axios'
 import VCalendar from 'v-calendar';
-import 'v-calendar/style.css';
+import 'v-calendar/dist/style.css';
 import { Slider, Switch, InputNumber, Row, Col } from 'ant-design-vue';
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState)

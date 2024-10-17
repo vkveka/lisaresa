@@ -14,13 +14,17 @@
 
 </head>
 
+
 <body class="">
-    <div id="app"></div>
+    <div id="app">
+    </div>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrf_token' => csrf_token(),
         ]); ?>
     </script>
 </body>
+
+
 
 </html>
