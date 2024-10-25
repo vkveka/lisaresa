@@ -1,6 +1,7 @@
 <template>
     <div class="d-flex gap-4 pb-5 flex-column mx-auto" style="max-width: 1500px;">
-        <InputSearch @searchResults="handleSearchResults" class="position-fixed" style="z-index: 1; left:50px"
+        <InputSearch @searchResults="handleSearchResults" class="position-fixed"
+            style="z-index: 1; left:50%; transform: translateX(-50%); top: 70px;"
             :initial-search-query="$route.query.search_query"
             :initial-dates="{ start: $route.query.date_in, end: $route.query.date_out }"
             :initial-persons="$route.query.persons" :initial-location-id="$route.query.location_id">

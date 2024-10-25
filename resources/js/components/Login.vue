@@ -56,7 +56,7 @@ const logIn = () => {
             })
                 .then((res) => {
                     console.log(res.data.user);
-                    userStore.storeUserData(res.data.user)
+                    userStore.storeUserData(res.data.user);
                     router.push('/')
                 })
                 .catch((error) => {

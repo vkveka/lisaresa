@@ -81,9 +81,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update(
-            $request->except('image', 'password')
-        );
+        // dd($request);
+        if ($request->lastname) {
+            $user->lastname = $request->lastname;
+        }
+        if ($request->firstname) {
+            $user->firstname = $request->firstname;
+        }
+        if ($request->email && $request->email !== $user->email) {
+            $user->email = $request->email;
+        }
+
+        $user->save();
 
         if ($request->password) {
             // si ancien mdp fourni ET valide (vérifié via Hash::check), modification validée 

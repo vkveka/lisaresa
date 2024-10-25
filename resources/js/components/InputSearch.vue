@@ -90,6 +90,8 @@
 import axios from 'axios';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '../stores/userStore';
+const userStore = useUserStore();
 const props = defineProps({
     initialSearchQuery: String,
     initialDates: Object,
@@ -151,14 +153,20 @@ const searchAccomodations = () => {
     hideDatePicker();
     const dateIn = new Date(range.value.start)
     const dateOut = new Date(range.value.end)
-    const locationId = villeId.value
+    const locationId = parseInt(villeId.value)
     const nbPersons = persons.value
     const optionIds = checkedInputs.value.map(option => option.id);
     const typeAccomodation = selectedAccomodationType.value
-    console.log(minPriceInput.value);
-    console.log(maxPriceInput.value);
+
+    console.log('dateIn :>> ', dateIn);
+    console.log('dateOut :>> ', dateOut);
+    console.log('locationId :>> ', locationId);
+    console.log('nbPersons :>> ', nbPersons);
+    console.log('optionIds :>> ', optionIds);
+    console.log('typeAccomodation :>> ', typeAccomodation);
+
     const collapseElement = document.querySelector('.collapse.show');
-    axios.get('/api/accomodations/search', {
+    axios.get('/api/accomodations/', {
         params: {
             date_in: dateIn.toISOString(),
             date_out: dateOut.toISOString(),
@@ -188,7 +196,7 @@ const searchAccomodations = () => {
             emit('searchResults', res.data.accomodations)
         })
         .catch((err) => {
-            console.error('Erreur lors de la recherche des logements :', err);
+            console.error('Erreur lors de la recherche des logements :', err.status);
         });
 }
 

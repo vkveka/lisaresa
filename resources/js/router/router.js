@@ -4,6 +4,8 @@ import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 import AccomodationDetails from '../components/AccomodationDetails.vue'
 import AccomodationsList from '../components/AccomodationsList.vue'
+import MyAccount from '../components/MyAccount.vue'
+import LogoutRedirect from '../components/LogoutRedirect.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,12 +39,13 @@ const router = createRouter({
         {
             path: '/logout',
             name: 'logout',
+            component: LogoutRedirect,
         },
-        // {
-        //     path: '/user/:id',
-        //     name: 'user',
-        //     component: EditAccount
-        // },
+        {
+            path: '/user/:id',
+            name: 'UserProfile',
+            component: MyAccount
+        },
     ]
 })
 

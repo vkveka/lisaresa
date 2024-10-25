@@ -17,10 +17,11 @@ class LoginController extends Controller
             // Si la connexion fonctionne, on récupère l'utilisateur et on charge son rôle
             $authUser = User::find(Auth::user()->id);
             $authUser->load('role');
+            $authUser["access_token"] =  $authUser->createToken('MyApp')->plainTextToken;
 
             return response()->json([
                 "user" => $authUser,
-                "message" => 'Vous êtes connecté'
+                "message" => 'Vous êtes connecté',
             ]);
         } else {
             return response()->json([

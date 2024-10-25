@@ -20,6 +20,6 @@ class IsAdmin
             return $next($request);
         }
 
-        abort(404, 'NOT FOUND.');
+        abort(401, 'Unauthorized.');
     }
 }

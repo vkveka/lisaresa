@@ -18,7 +18,6 @@ return new class extends Migration
             $table->enum('type', ['maison', 'appartement']);
             $table->float('price', 7, 2);
             $table->tinyInteger('dispo');
-            // $table->boolean('dispo');
             $table->string('address', 200);
             $table->float('superficy', 5, 2);
             $table->integer('rooms');

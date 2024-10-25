@@ -23,14 +23,14 @@ Route::fallback(function () {
 });
 
 Route::apiResource("users", UserController::class);
-Route::apiResource("comments", CommentController::class)->middleware('auth:sanctum');
-Route::apiResource("reservations", ReservationController::class)->middleware('auth:sanctum');
 Route::get('accomodations/search', [AccomodationController::class, 'accomodationFromSearch'])->name('accomodations.search');
 Route::apiResource("accomodations", AccomodationController::class);
+Route::apiResource("comments", CommentController::class)->middleware('auth:sanctum');
+Route::apiResource("reservations", ReservationController::class)->middleware('auth:sanctum');
 Route::apiResource("options", OptionController::class);
 Route::apiResource("payments", PaymentController::class)->middleware('auth:sanctum');
 Route::apiResource("images", ImageController::class);
 Route::get('locations', [LocationController::class, 'index'])->name('locations');
 
 Route::post('login', [\App\Http\Controllers\API\LoginController::class, 'login'])->name('login');
-Route::post('logout', [\App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
+Route::post('logout', [\App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:sanctum');

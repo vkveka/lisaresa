@@ -7,6 +7,7 @@ use App\Models\Accomodation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Query\JoinClause;
 use App\Http\Requests\StoreAccomodationRequest;
@@ -37,6 +38,7 @@ class AccomodationController extends Controller
 
     public function accomodationFromSearch(Request $request)
     {
+        // dd($request);
         $location_id = $request->location_id;
         $date_in = $request->date_in;
         $date_out = $request->date_out;
@@ -99,14 +101,12 @@ class AccomodationController extends Controller
             'price' => $request->price,
             'dispo' => $request->dispo,
             'address' => $request->address,
-            'cp' => $request->cp,
-            'city' => $request->city,
-            'country' => $request->country,
             'superficy' => $request->superficy,
             'rooms' => $request->rooms,
             'beds' => $request->beds,
             'persons' => $request->persons,
             'note' => $request->note,
+            'location_id' => $request->location_id,
         ]);
 
         return response()->json([

@@ -24,6 +24,7 @@ class Accomodation extends Model
         'beds',
         'persons',
         'note',
+        'location_id',
     ];
 
     public function images()
