@@ -17,7 +17,7 @@
                     </ul>
                     <div class="btn-group dropstart ms-5 me-3" style="cursor: pointer;">
                         <div v-if="userStore.user">
-                            <img :src="getUserImage(userStore.user.image)" data-bs-toggle="dropdown"
+                            <img :src="`/images/${userStore.user.image}`" data-bs-toggle="dropdown"
                                 aria-expanded="false" class="dropdown-toggle img_user" alt="image user non connecté"
                                 width="40px" height="40px">
                             <!-- <img src="../../../public/images/logo.png" data-bs-toggle="dropdown" aria-expanded="false"
@@ -55,9 +55,9 @@ const userStore = useUserStore();
 
 
 
-const getUserImage = (imageName) => {
-    return imageName ? `http://[::1]:5173/public/images/${imageName}` : '../../../public/images/logo.png';
-};
+// const getUserImage = (imageName) => {
+//     return imageName ? `/images/${imageName}` : '/images/logo.png';
+// };
 </script>
 
 <style scoped>

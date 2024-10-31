@@ -20,7 +20,7 @@ import HomeSearch from './components/HomeSearch.vue';
     margin: 0 !important;
     height: 100vh;
     width: 100vw;
-    background: url('./images/default_picture_4_dark.jpg');
+    background: url('/images/default_picture_4_dark.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -33,4 +33,5 @@ Route::apiResource("images", ImageController::class);
 Route::get('locations', [LocationController::class, 'index'])->name('locations');
 
 Route::post('login', [\App\Http\Controllers\API\LoginController::class, 'login'])->name('login');
-Route::post('logout', [\App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
+// Route::post('login', [\App\Http\Controllers\API\LoginController::class, 'login'])->name('login')->middleware('web');
+Route::post('logout', [\App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:web');

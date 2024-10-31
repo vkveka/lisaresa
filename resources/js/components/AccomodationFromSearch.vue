@@ -5,7 +5,7 @@
             @click="goToAccomodationDetails(accomodation)">
             <div class="card-content">
                 <div class="card-body d-flex flex-column p-0 m-0" style=" border: 0 solid transparent;">
-                    <img :src="`./images/accomodations/${accomodation.id}/${accomodation.images[0].name}`"
+                    <img :src="`/images/accomodations/${accomodation.id}/${accomodation.images[0].name}`"
                         alt="image logement lisaresa"
                         style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
                     <span class="fw-bold fs-5 m-3">

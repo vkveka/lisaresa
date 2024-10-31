@@ -67,6 +67,10 @@ const fileList = ref([])
 
 const EditInfoUser = async () => {
     try {
+        if (!userStore.user || !userStore.user.access_token) {
+            throw new Error('Utilisateur non connecté');
+        }
+
         const res = await axios.put(`/api/users/${userStore.user.id}`,
             {
                 lastname: lastnameValue.value,
@@ -79,7 +83,7 @@ const EditInfoUser = async () => {
             {
                 headers: {
                     Authorization: `Bearer ${userStore.user.access_token}`,
-                    'Content-Type': 'application/json',  // ou multipart/form-data si vraiment nécessaire
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
             }
@@ -92,18 +96,32 @@ const EditInfoUser = async () => {
             confirmButtonText: 'OK'
         });
 
-        console.log('Hello');
+        userStore.storeUserData({
+            ...res.data.user,
+            access_token: userStore.user.access_token
+        });
+
+        console.log('User information updated successfully');
+
     } catch (error) {
+        let errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+
+        if (error.response) {
+            if (error.response.status === 401) {
+                errorMessage = 'Non authentifié. Veuillez vous reconnecter.';
+            }
+        }
+
         Swal.fire({
             title: 'Erreur!',
-            text: 'Une erreur est survenue. Veuillez réessayer.',
+            text: errorMessage,
             icon: 'error',
             confirmButtonText: 'OK'
         });
+
         console.error('Modification des informations de l\'utilisateur impossible : ', error);
-
     }
-
 }
+
 </script>
 <style scoped></style>
