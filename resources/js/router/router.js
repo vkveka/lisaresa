@@ -6,6 +6,10 @@ import AccomodationDetails from '../components/AccomodationDetails.vue'
 import AccomodationsList from '../components/AccomodationsList.vue'
 import MyAccount from '../components/MyAccount.vue'
 import LogoutRedirect from '../components/LogoutRedirect.vue'
+import About from '../components/About.vue'
+import Destinations from '../components/Destinations.vue'
+import Avis from '../components/Avis.vue'
+import Contact from '../components/Contact.vue'
 
 const router = createRouter({
     history: createWebHistory('/'),
@@ -14,6 +18,26 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: App
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About
+        },
+        {
+            path: '/destinations',
+            name: 'destinations',
+            component: Destinations
+        },
+        {
+            path: '/avis',
+            name: 'avis',
+            component: Avis
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: Contact
         },
         {
             path: '/login',

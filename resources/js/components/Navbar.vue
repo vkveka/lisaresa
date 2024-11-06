@@ -2,8 +2,8 @@
     <div class="sticky-top shadow">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <img src="../../../public/images/logo/logo_black.png" alt="logo blog_api" width="100px"
-                    class="mx-5 my-1">
+                <img src="../../../public/images/logo/logo_brown.png" alt="logo blog_api" width="auto" height="30px"
+                    class="mx-5 my-3">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -11,8 +11,21 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Accueil</a>
+                        <li class="nav-item pe-5">
+                            <router-link class="nav-link active" aria-current="page" to="/">Accueil</router-link>
+                        </li>
+                        <li class="nav-item pe-5">
+                            <router-link class="nav-link " aria-current="page" to="/about">A propos</router-link>
+                        </li>
+                        <li class="nav-item pe-5">
+                            <router-link class="nav-link " aria-current="page"
+                                to="/destinations">Destinations</router-link>
+                        </li>
+                        <li class="nav-item pe-5">
+                            <router-link class="nav-link " aria-current="page" to="/contact">Contact</router-link>
+                        </li>
+                        <li class="nav-item pe-5">
+                            <router-link class="nav-link " aria-current="page" to="/avis">Avis</router-link>
                         </li>
                     </ul>
                     <div class="btn-group dropstart ms-5 me-3" style="cursor: pointer;">
@@ -20,16 +33,12 @@
                             <img :src="`/images/${userStore.user.image}`" data-bs-toggle="dropdown"
                                 aria-expanded="false" class="dropdown-toggle img_user" alt="image user non connecté"
                                 width="40px" height="40px">
-                            <!-- <img src="../../../public/images/logo.png" data-bs-toggle="dropdown" aria-expanded="false"
-                                class="dropdown-toggle" alt="image user non connecté" width="40px"> -->
                             <ul class="dropdown-menu">
                                 <li>
                                     <router-link class="dropdown-item" :to="`/user/${userStore.user.id}`">Mon
                                         Compte</router-link>
                                 </li>
                                 <li><router-link class="dropdown-item" to="/logout">Deconnexion</router-link></li>
-                                <!-- <li><router-link class="dropdown-item" to="/login">Connexion</router-link></li> -->
-
                             </ul>
                         </div>
                         <div v-else>
@@ -61,6 +70,21 @@ const userStore = useUserStore();
 </script>
 
 <style scoped>
+.active {
+    color: #5a4736 !important;
+    font-weight: bold;
+}
+
+.nav-item {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.nav-item a {
+    color: #9C7C5E;
+}
+
 .img_user {
     border-radius: 10vh;
 }

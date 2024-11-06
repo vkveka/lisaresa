@@ -1,6 +1,12 @@
 <template>
-    <div class="container gap-5" @click="hideDatePicker(); resetList();">
-        <img id="logo" src="../../../public/images/logo/logo_offcolor.png" alt="logo Lisaresa" width="50%">
+    <div class="gap-5 " @click="hideDatePicker(); resetList();">
+        <div class="">
+
+            <!-- <img id="logo" src="../../../public/images/logo/logo_offcolor.png" alt="logo Lisaresa" width="50%"> -->
+            <h2>VOS REVES</h2>
+            <h3>COMMENCENT ICI</h3>
+            <h2>EN TOUTE SIMPLICITE</h2>
+        </div>
         <form @submit.prevent="searchAccomodations" class="d-flex flex-column">
             <div class="parentSearchInput d-flex gap-2" style="width: 1000px;">
                 <div class="w-100 position-relative">
@@ -128,13 +134,23 @@ const searchAccomodations = () => {
 };
 </script>
 <style scoped>
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+h2,
+h3 {
+    margin: 0;
+    color: white;
+    text-shadow: 0 0 5px black;
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
+h2 {
+    font-size: 80px;
+}
+
+h3 {
+    font-size: 40px;
+}
 
 
 #logo {
