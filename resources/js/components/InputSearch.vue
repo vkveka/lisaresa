@@ -166,7 +166,7 @@ const searchAccomodations = () => {
     console.log('typeAccomodation :>> ', typeAccomodation);
 
     const collapseElement = document.querySelector('.collapse.show');
-    axios.get('/api/accomodations/', {
+    axios.get('/api/accomodations/search', {
         params: {
             date_in: dateIn.toISOString(),
             date_out: dateOut.toISOString(),

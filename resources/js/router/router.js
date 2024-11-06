@@ -8,7 +8,7 @@ import MyAccount from '../components/MyAccount.vue'
 import LogoutRedirect from '../components/LogoutRedirect.vue'
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory('/'),
     routes: [
         {
             path: '/',

@@ -2,7 +2,7 @@
     <div v-if="accomodation" class="accomodation-details">
 
         <div class="photo-gallery d-flex align-items-center">
-            <img :src="'/images/accomodations/' + accomodation.id + '/' + accomodation.images[0].name" alt="Main Image"
+            <img v-if="accomodation.images[0]" :src="'/images/accomodations/' + accomodation.id + '/' + accomodation.images[0].name" alt="Main Image"
                 class="main-image" />
             <div class="small-images">
                 <img v-for="(image, index) in accomodation.images.slice(1, 5)" :key="index"

@@ -151,7 +151,7 @@ const AddAccomodation = async () => {
     const location_id = parseInt(location_idValue.value);
 
     try {
-        const accomodationRes = await axios.post('/api/accomodations/', {
+        const accomodationRes = await axios.post('/api/accomodations', {
             name: name,
             description: description,
             type: type,

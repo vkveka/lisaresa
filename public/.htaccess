@@ -16,8 +16,8 @@
     RewriteRule ^ %1 [L,R=301]
 
     # Force HTTPS Redirection
-    # RewriteCond %{HTTPS} off
-    # RewriteRule ^(.*)$ https://lisaresa.fr/$1 [R=301,L]
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://lisaresa.fr/$1 [R=301,L]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
