@@ -11,9 +11,9 @@
                 <h3>Notre plateforme conviviale <br>
                     simplifiée vous ouvre les portes de logements uniques.</h3>
                 <h3 class="text-end">Explorez, réservez et vivez une expérience inoubliable. </h3>
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3>Réservez en toute simplicité et vivez <br> des expériences uniques.</h3>
-                    <button type="button" class="btn btn-green">Réserver</button>
+                <div class="d-flex justify-content-between align-items-center sectinWBtn">
+                    <h3 class="w-100">Réservez en toute simplicité et vivez <br> des expériences uniques.</h3>
+                    <button type="button" class="btn btn-green mt-4 mt-md-0">Réserver</button>
                 </div>
             </section>
             <section class="section_2 p-5">
@@ -45,7 +45,48 @@
                 </div>
             </section>
             <section class="testimonials p-5">
-                <h2>TEMOIGNAGES</h2>
+                <h2 class="mb-5">TEMOIGNAGES</h2>
+                <div class="row text-center">
+                    <div class="mx-auto col-md-3 cardTestimonial mb-3 mb-md-0">
+                        <p>Un endroit superbe ! Merci à Jean pour sa réactivité. Je recommande fortement !</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <h5 class="text-end m-0 p-0">JULES</h5>
+                        </div>
+                    </div>
+                    <div class="mx-auto col-md-3 cardTestimonial mb-3 mb-md-0">
+                        <p>Un endroit superbe ! Merci à Jean pour sa réactivité. Je recommande fortement !</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <h5 class="text-end m-0 p-0">JULES</h5>
+                        </div>
+                    </div>
+                    <div class="mx-auto col-md-3 cardTestimonial mb-3 mb-md-0">
+                        <p>Un endroit superbe ! Merci à Jean pour sa réactivité. Je recommande fortement !</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <h5 class="text-end m-0 p-0">JULES</h5>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -59,6 +100,46 @@ import Footer from './components/Footer.vue';
 </script>
 
 <style scoped>
+.cardTestimonial {
+    padding: 20px;
+    color: white;
+    text-shadow: 0 0 6px black;
+    background-color: #ffffff6e;
+    border-radius: 8px;
+}
+
+.cardTestimonial p {
+    font-style: italic;
+}
+
+.cardTestimonial h5 {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.cardTestimonial p::before {
+    font-family: 'Font Awesome 5 Free';
+    content: "\f10d";
+    font-weight: 900;
+    color: #fff;
+    margin-right: 10px;
+    font-size: 1.2em;
+    position: relative;
+    top: -10px
+}
+
+.cardTestimonial p::after {
+    font-family: 'Font Awesome 5 Free';
+    content: "\f10e";
+    font-weight: 900;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 1.2em;
+    position: relative;
+    bottom: -10px
+}
+
 .testimonials {
     height: auto;
     background: url(/images/testimonials.jpeg);
@@ -72,22 +153,17 @@ import Footer from './components/Footer.vue';
     text-align: center;
 }
 
-.btn-green {
-    background-color: #647357;
-    color: #fff;
-    border: none;
 
-}
 
 .section_1 button {
     padding: 6px 25px;
     font-size: x-large;
-    margin-right: 100px
+    margin-right: 100px;
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-.btn-green:hover {
-    background-color: #4c5742;
-}
 
 .section_1 h3 {
     color: #9C7C5E;
@@ -103,6 +179,26 @@ import Footer from './components/Footer.vue';
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+}
+
+@media screen and (max-width: 870px) {
+    .section_1 {
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+    }
+
+    .section_1 button {
+        margin-right: 10px;
+    }
+
+    .sectinWBtn {
+        display: block;
+        flex-direction: column !important;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
 }
 
 .section_2 {
@@ -130,11 +226,9 @@ import Footer from './components/Footer.vue';
 }
 
 .homeSearchComponent {
-    /* margin: 0 !important; */
-    max-height: 100vh;
-    /* width: 100vw !important; */
+    min-height: 80vh;
     background: url('/images/header.jpeg');
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
     background-repeat: no-repeat;
 }

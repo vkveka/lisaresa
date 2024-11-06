@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="searchAccomodations">
-            <div class="" style="width: 1000px;">
+            <div class="" style="width: 100%;">
                 <div class="parentSearchInput d-flex gap-2">
                     <div class="w-100 position-relative">
                         <input type="text" class="form-control border-0 " placeholder="Lieu..." v-model="searchQuery"

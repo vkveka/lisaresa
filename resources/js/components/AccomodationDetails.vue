@@ -137,15 +137,7 @@ onMounted(async () => {
     font-weight: normal;
 }
 
-.btn-green {
-    background-color: #647357;
-    color: #fff;
-    border: none;
-}
 
-.btn-green:hover {
-    background-color: #4c5742;
-}
 
 .total {
     font-size: 18px;

@@ -1,46 +1,47 @@
 <template>
-    <div class="gap-5 " @click="hideDatePicker(); resetList();">
+    <div class="gap-5 parentHeader" @click="hideDatePicker(); resetList();">
         <div class="">
 
             <!-- <img id="logo" src="../../../public/images/logo/logo_offcolor.png" alt="logo Lisaresa" width="50%"> -->
             <h2>VOS REVES</h2>
             <h3>COMMENCENT ICI</h3>
             <h2>EN TOUTE SIMPLICITE</h2>
-        </div>
-        <form @submit.prevent="searchAccomodations" class="d-flex flex-column">
-            <div class="parentSearchInput d-flex gap-2" style="width: 1000px;">
-                <div class="w-100 position-relative">
-                    <input type="text" class="form-control border-0 " placeholder="Lieu..." v-model="searchQuery"
-                        @input="searchCities" @click="searchCities(); hideDatePicker()">
-                    <ul id="citiesList" class="listStyle" v-if="cities" style="max-height: 300px; overflow-y: auto;">
-                        <li v-for="city in cities" :key="city.ville_id"
-                            @click="selectCity(city.ville_nom, city.ville_id)">
-                            <span v-if="city.ville_code_postal.length > 5">{{ city.ville_nom }}</span>
-                            <span v-else>{{ city.ville_nom }} - {{ city.ville_code_postal.slice(0, 5) }}</span>
-                            <input type="hidden" v-model="villeId">
-                        </li>
-                    </ul>
-                </div>
-                <div class="position-relative w-100" @click.stop>
-                    <input type="text" class="form-control border-0" placeholder="Dates..."
-                        @focus="showDatePicker = true" v-model="selectedDate" @click="resetList">
-                    <div class="position-absolute d-flex gap-3" style="" :style="{
-                        display: showDatePicker ? 'block' : 'none',
-                        top: '130%',
-                        zIndex: 999,
-                    }">
-                        <VDatePicker v-model.range.number="range" v-if="showDatePicker" @click="logSelectedDate"
-                            @focus="showDatePicker = true" />
+            <form @submit.prevent="searchAccomodations" class="d-flex flex-column">
+                <div class="parentSearchInput d-flex " style="width: 100%;">
+                    <div class="w-100 position-relative">
+                        <input type="text" class="form-control border-0 " placeholder="Lieu..." v-model="searchQuery"
+                            @input="searchCities" @click="searchCities(); hideDatePicker()">
+                        <ul id="citiesList" class="listStyle" v-if="cities"
+                            style="max-height: 300px; overflow-y: auto;">
+                            <li v-for="city in cities" :key="city.ville_id"
+                                @click="selectCity(city.ville_nom, city.ville_id)">
+                                <span v-if="city.ville_code_postal.length > 5">{{ city.ville_nom }}</span>
+                                <span v-else>{{ city.ville_nom }} - {{ city.ville_code_postal.slice(0, 5) }}</span>
+                                <input type="hidden" v-model="villeId">
+                            </li>
+                        </ul>
                     </div>
+                    <div class="position-relative w-100" @click.stop>
+                        <input type="text" class="form-control border-0 input-date" placeholder="Dates..."
+                            @focus="showDatePicker = true" v-model="selectedDate" @click="resetList">
+                        <div class="position-absolute d-flex gap-3" style="" :style="{
+                            display: showDatePicker ? 'block' : 'none',
+                            top: '130%',
+                            zIndex: 999,
+                        }">
+                            <VDatePicker v-model.range.number="range" v-if="showDatePicker" @click="logSelectedDate"
+                                @focus="showDatePicker = true" />
+                        </div>
+                    </div>
+                    <input type="number" class="form-control border-0" v-model="persons" placeholder="Voyageurs..."
+                        @click="hideDatePicker()" style="width: 50%;">
+                    <button type="submit" class="btn btn-green mx-auto ">Rechercher</button>
                 </div>
-                <input type="number" class="form-control border-0" v-model="persons" placeholder="Voyageurs..."
-                    @click="hideDatePicker()">
-            </div>
 
-            <button type="submit" class="btn btn-success mx-auto mt-5">Go</button>
-            <!-- <i v-if="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
+                <!-- <i v-if="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
             <span v-if="!isLoading">Publier</span> -->
-        </form>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -53,7 +54,6 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const searchQuery = ref('');
 const cities = ref(null);
-const citiesList = ref(null);
 const showDatePicker = ref(false);
 const villeId = ref(null);
 const selectedDate = ref(null);
@@ -134,6 +134,30 @@ const searchAccomodations = () => {
 };
 </script>
 <style scoped>
+input {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#citiesList {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+input::placeholder {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+button[type="submit"] {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 h2,
 h3 {
     margin: 0;
@@ -142,6 +166,77 @@ h3 {
     font-family: "Julius Sans One", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+@media screen and (max-width: 992px) {
+    h2 {
+        font-size: 60px !important;
+    }
+
+    h3 {
+        font-size: 30px !important;
+    }
+
+    .parentHeader {
+        margin-top: -100px;
+        padding: 0 100px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h2 {
+        font-size: 50px !important;
+    }
+
+    h3 {
+        font-size: 30px !important;
+    }
+
+    .parentHeader {
+        padding: 0 30px !important;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    form {
+        margin-top: 50px;
+    }
+    .parentSearchInput {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input[type="number"] {
+        height: auto !important;
+        margin-bottom: 10px;
+    }
+
+    h2,
+    h3 {
+        text-align: center !important;
+    }
+}
+
+@media screen and (min-width: 541px) {
+
+    .input-date {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    input[type="text"] {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type="number"] {
+        border-radius: 0;
+    }
+
+    button[type="submit"] {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }
 
 h2 {
@@ -159,18 +254,19 @@ h3 {
 
 .parentSearchInput {
     border-radius: 2vh;
-    background-color: rgba(255, 255, 255, 0.863);
-    border: 1px solid rgba(128, 128, 128, 0.377);
     padding: 10px;
     height: 80px;
 }
 
 .parentSearchInput input {
+    background-color: rgba(255, 255, 255, 0.932);
+    border: 1px solid rgba(0, 0, 0, 0.068) !important;
     font-style: normal;
     height: 100%;
 }
 
 .listStyle {
+    z-index: 998;
     position: absolute;
     top: 50px;
     border: 1px solid rgb(210, 210, 210);

@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex gap-4 pb-5 flex-column mx-auto" style="max-width: 1500px;">
-        <InputSearch @searchResults="handleSearchResults" class="position-fixed"
-            style="z-index: 1; left:50%; transform: translateX(-50%); top: 70px;"
+        <InputSearch @searchResults="handleSearchResults" class="position-fixed inputSearchClass"
+            style="z-index: 1; left:50%; transform: translateX(-50%); top: 90px;"
             :initial-search-query="$route.query.search_query"
             :initial-dates="{ start: $route.query.date_in, end: $route.query.date_out }"
             :initial-persons="$route.query.persons" :initial-location-id="$route.query.location_id">
@@ -12,7 +12,7 @@
             </AccomodationFromSearch>
         </div>
         <div class="d-flex gap-3 mt-5 pt-5 flex-wrap justify-content-center text-light" v-else>
-            <span>Pas de logement disponible</span>
+            <span style="color: #647357;">Pas de logement disponible</span>
         </div>
     </div>
 </template>
@@ -63,6 +63,16 @@ fetchAccomodations();
 
 </script>
 <style scoped>
+.inputSearchClass {
+    width: 70% !important;
+}
+
+@media screen and (max-width: 768px) {
+    .inputSearchClass {
+        width: 90% !important;
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
