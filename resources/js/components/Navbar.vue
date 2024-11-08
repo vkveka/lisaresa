@@ -2,15 +2,15 @@
     <div class="sticky-top shadow">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <img src="../../../public/images/logo/logo_brown.png" alt="logo blog_api" width="auto" height="30px"
+                <img :src="`/images/logo/logo_brown.png`" alt="logo blog_api" width="auto" height="30px"
                     class="mx-5 my-3">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="collapse navbar-collapse ms-lg-0 ms-3" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 w-100 justify-content-between me-5 ms-0 ms-xl-5">
                         <li class="nav-item pe-5">
                             <router-link class="nav-link active" aria-current="page" to="/">Accueil</router-link>
                         </li>
@@ -27,29 +27,35 @@
                         <li class="nav-item pe-5">
                             <router-link class="nav-link " aria-current="page" to="/avis">Avis</router-link>
                         </li>
+                        <li class="nav-item pe-5 my-auto">
+                            <div class="dropdown dropstart" style="cursor: pointer; max-width: 100px;">
+                                <div v-if="userStore.user">
+                                    <img :src="`/images/users/${userStore.user.image}`" data-bs-toggle="dropdown"
+                                        aria-expanded="false" class="dropdown-toggle img_user"
+                                        alt="image user non connecté" width="40px" height="40px">
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <router-link class="dropdown-item" :to="`/user/${userStore.user.id}`">Mon
+                                                Compte</router-link>
+                                        </li>
+                                        <li><router-link class="dropdown-item" to="/logout">Deconnexion</router-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div v-else>
+                                    <i class="fa-solid fa-arrow-right-to-bracket fa-2x my-auto" data-bs-toggle="dropdown"
+                                        aria-expanded="false" style="color: #9C7C5E;"></i>
+                                    <!-- <img :src="`/images/users/user.png`"alt="image user non connecté"
+                                        width="40px"> -->
+                                    <ul class="dropdown-menu">
+                                        <li><router-link class="dropdown-item" to="/login">Connexion</router-link></li>
+                                        <li><router-link class="dropdown-item" to="/register">Inscription</router-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
-                    <div class="btn-group dropstart ms-5 me-3" style="cursor: pointer;">
-                        <div v-if="userStore.user">
-                            <img :src="`/images/${userStore.user.image}`" data-bs-toggle="dropdown"
-                                aria-expanded="false" class="dropdown-toggle img_user" alt="image user non connecté"
-                                width="40px" height="40px">
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <router-link class="dropdown-item" :to="`/user/${userStore.user.id}`">Mon
-                                        Compte</router-link>
-                                </li>
-                                <li><router-link class="dropdown-item" to="/logout">Deconnexion</router-link></li>
-                            </ul>
-                        </div>
-                        <div v-else>
-                            <img src="../../../public/images/user.png" data-bs-toggle="dropdown" aria-expanded="false"
-                                class="dropdown-toggle" alt="image user non connecté" width="40px">
-                            <ul class="dropdown-menu">
-                                <li><router-link class="dropdown-item" to="/login">Connexion</router-link></li>
-                                <li><router-link class="dropdown-item" to="/register">Inscription</router-link></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </nav>

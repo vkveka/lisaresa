@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="col-md-4 text-center mx-auto">
-            <img src="../../../public/images/logo/logo_brown.png" alt="logo lisaresa" width="auto" height="40px"
+            <img :src="`/images/logo/logo_brown.png`" alt="logo lisaresa" width="auto" height="40px"
                 class="mx-5 mt-5">
         </div>
         <div class="col-md-4 text-center mx-auto">

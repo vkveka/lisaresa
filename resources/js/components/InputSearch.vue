@@ -32,7 +32,8 @@
                         @click="hideDatePicker(), resetList()" style="width: 90px;">
                     <div class="flex-column">
                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+                            @click="fixedBody">
                             <i class="fa-solid fa-list"></i>
                         </button>
                     </div>
@@ -44,11 +45,10 @@
 
                             <div class=" d-flex justify-content-between ">
                                 <h3>Type d'hébergement</h3>
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center collapseBtnRight">
                                     <a href="#" style="color: red;" class="me-5" @click="clearInputs">Effacer</a>
                                     <button type="button" class="btn btn-outline-dark"
-                                        @click="searchAccomodations();">Enregistrer les
-                                        modifications</button>
+                                        @click="searchAccomodations();">Rechercher</button>
                                 </div>
                             </div>
 
@@ -282,6 +282,12 @@ const getOptions = async () => {
 }
 
 getOptions();
+
+const fixedBody = () => {
+    document.body.classList.toggle('no-scroll');
+    console.log('Classe no-scroll présente :', document.body.classList.contains('no-scroll'));
+};
+
 </script>
 <style scoped>
 .parentSpan {
@@ -340,5 +346,16 @@ getOptions();
 .listStyle li:hover {
     background-color: rgb(212, 212, 212);
     color: gray
+}
+
+@media screen and (max-width: 991px) {
+    .collapseBtnRight {
+        flex-direction: column-reverse;
+        align-items: flex-end !important;
+    }
+
+    .collapseBtnRight a {
+        margin: 0 !important;
+    }
 }
 </style>

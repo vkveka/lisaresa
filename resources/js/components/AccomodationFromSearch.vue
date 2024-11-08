@@ -8,9 +8,7 @@
                     <img v-if="accomodation.images[0]" :src="`/images/accomodations/${accomodation.id}/${accomodation.images[0].name}`"
                         alt="image logement lisaresa"
                         style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                    <span class="fw-bold fs-5 m-3">
-                        {{ accomodation.name }}
-                    </span>
+                    <span class="fw-bold fs-5 m-3">{{ accomodation.name }}</span>
                     <span class="fw-bold ms-3">
                         {{ accomodation.price }}€ /nuit
                     </span>

@@ -1,8 +1,6 @@
 <template>
     <div class="gap-5 parentHeader" @click="hideDatePicker(); resetList();">
         <div class="">
-
-            <!-- <img id="logo" src="../../../public/images/logo/logo_offcolor.png" alt="logo Lisaresa" width="50%"> -->
             <h2>VOS REVES</h2>
             <h3>COMMENCENT ICI</h3>
             <h2>EN TOUTE SIMPLICITE</h2>
@@ -201,6 +199,7 @@ h3 {
     form {
         margin-top: 50px;
     }
+
     .parentSearchInput {
         display: flex;
         flex-direction: column;

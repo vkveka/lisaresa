@@ -1,8 +1,8 @@
 <template>
-    <div class="col-2 mx-auto">
+    <div class="col-10 col-sm-8 col-md-6 col-lg-3 mx-auto mb-5">
         <h1 class="text-center my-5">Login</h1>
         <form class="row g-3 needs-validation" @submit.prevent="logIn">
-            <div class="row mx-auto">
+            <div class="col-md-12 mx-auto">
                 <label for="email" class="form-label">Pseudo</label>
                 <div class="input-group has-validation">
                     <input v-model="email" type="email" class="form-control" id="email" required>
@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mx-auto">
+            <div class="col-md-12 mx-auto">
                 <label for="password" class="form-label">Mot de passe</label>
                 <div class="input-group has-validation">
                     <input v-model="password" type="password" class="form-control" id="password" required>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="row mt-4 text-center mx-auto">
+            <div class="col-md-12 mt-4 text-center mx-auto">
                 <button class="btn btn-dark" type="submit">
                     <i v-if="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
                     <span v-if="!isLoading">Se connecter</span>

@@ -10,6 +10,7 @@ import About from '../components/About.vue'
 import Destinations from '../components/Destinations.vue'
 import Avis from '../components/Avis.vue'
 import Contact from '../components/Contact.vue'
+import Cgu from '../components/Cgu.vue'
 
 const router = createRouter({
     history: createWebHistory('/'),
@@ -69,6 +70,11 @@ const router = createRouter({
             path: '/user/:id',
             name: 'UserProfile',
             component: MyAccount
+        },
+        {
+            path: '/cgu',
+            name: 'CGU',
+            component: Cgu
         },
     ]
 })

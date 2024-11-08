@@ -23,6 +23,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'cgu' => 'accepted',
             'firstname' => 'required|string|max:40|min:3',
             'lastname' => 'required|string|max:40|min:3',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:2048',

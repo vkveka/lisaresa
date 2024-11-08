@@ -1,5 +1,5 @@
 <template>
-    <div v-if="userStore.user && userStore.user.role_id == 1" class="p-5">
+    <div v-if="userStore.user && userStore.user.role_id == 1" class="p-sm-5 p-3">
         <div class="row">
             <div class="col-md-6">
                 <h1>Ajouter un logement</h1>

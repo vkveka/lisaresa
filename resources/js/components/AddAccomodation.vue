@@ -4,66 +4,66 @@
             <form @submit.prevent="AddAccomodation">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="name" class="form-label">Nom</label>
                             <input type="text" id="name" class="form-control" placeholder="Nom..." v-model="nameValue"
                                 required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="description" class="form-label">Description</label>
                             <input type="text" id="description" class="form-control" placeholder="Description..."
                                 v-model="descriptionValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="type" class="form-label">Type</label>
                             <select name="type" id="type" class="form-select" v-model="typeValue" required>
                                 <option value="maison">Maison</option>
                                 <option value="appartement">Appartement</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="price" class="form-label">Prix</label>
                             <input type="number" id="price" class="form-control" placeholder="Prix..."
                                 v-model="priceValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="dispo" class="form-label">Dispo</label>
                             <select name="dispo" id="dispo" class="form-select" v-model="dispoValue" required>
                                 <option value="1">Oui</option>
                                 <option value="2">Non</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="address" class="form-label">Adresse</label>
                             <input type="text" id="address" class="form-control" placeholder="Adresse..."
                                 v-model="addressValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="superficy" class="form-label">Superficie</label>
                             <input type="number" id="superficy" class="form-control" placeholder="Superficie..."
                                 v-model="superficyValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="rooms" class="form-label">Nb de chambres</label>
                             <input type="number" id="rooms" class="form-control" placeholder="Chambres..."
                                 v-model="roomsValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="beds" class="form-label">Nb de lits</label>
                             <input type="number" id="beds" class="form-control" placeholder="Lits..."
                                 v-model="bedsValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="persons" class="form-label">Max voyageurs</label>
                             <input type="number" id="persons" class="form-control" placeholder="Max. voyageurs..."
                                 v-model="personsValue" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="note" class="form-label">Note</label>
                             <input type="number" id="note" class="form-control" placeholder="Note..."
                                 v-model="noteValue">
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="location_id" class="form-label">Ville</label>
                             <input type="text" id="location_id" class="form-control" placeholder="Ville..."
                                 v-model="location_idValue" required>

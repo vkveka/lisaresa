@@ -4,39 +4,39 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-lg-2 col-12">
 
                             <img :src="`/images/${imageValue}`" alt="profile picture lisaresa"
                                 style="width: 100px; height: auto;">
                         </div>
-                        <div class="col-5">
+                        <div class="col-lg-5 col-12">
                             <label for="firstname" class="form-label">Prénom</label>
                             <input type="text" id="firstname" class="form-control" placeholder="Prénom..."
                                 v-model="lastnameValue">
                         </div>
-                        <div class="col-5">
+                        <div class="col-lg-5 col-12">
                             <label for="lastname" class="form-label">Nom</label>
                             <input type="text" id="lastname" class="form-control" placeholder="Nom..."
                                 v-model="firstnameValue">
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" id="email" class="form-control" placeholder="Email..."
                                 v-model="emailValue">
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="oldPassword" class="form-label">Ancien Mot de passe</label>
                             <input type="password" id="oldPassword" class="form-control" name="oldPassword"
                                 placeholder="Nouveau Mot de passe..." v-model="oldPasswordValue">
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="password" class="form-label">Nouveau Mot de passe</label>
                             <input type="password" id="password" class="form-control" name="password"
                                 placeholder="Nouveau Mot de passe..." v-model="passwordValue">
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <label for="password_confirmation" class="form-label">Confirmation Mot de passe</label>
                             <input type="password" id="password_confirmation" class="form-control"
                                 name="password_confirmation" placeholder="Confirmation Mot de passe..."

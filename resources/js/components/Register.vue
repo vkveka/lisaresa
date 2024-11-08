@@ -1,68 +1,88 @@
 <template>
-    <div class="col-2 mx-auto">
+    <div class="col-10 col-sm-8 col-md-8 col-xl-6 mx-auto mb-5">
         <h1 class="text-center my-5">Inscription</h1>
         <form class="row g-3 needs-validation" @submit.prevent="register">
-            <div class="row mx-auto">
-                <label for="pseudo" class="form-label">Pseudo</label>
-                <div class="input-group has-validation">
-                    <input v-model="pseudo" type="text" class="form-control" id="pseudo" required>
-                    <div class="invalid-feedback">
-                        Please choose a pseudo.
+            <div class="col-md-6">
+                <div class="col-md-12 mx-auto mb-3">
+                    <label for="firstname" class="form-label">Prénom</label>
+                    <div class="input-group has-validation">
+                        <input v-model="firstname" type="text" class="form-control" id="firstname" required>
+                        <div class="invalid-feedback">
+                            Please choose a firstname.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mx-auto mb-3">
+                    <label for="lastname" class="form-label">Nom</label>
+                    <div class="input-group has-validation">
+                        <input v-model="lastname" type="text" class="form-control" id="lastname" required>
+                        <div class="invalid-feedback">
+                            Please choose a lastname.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mx-auto mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group has-validation">
+                        <input v-model="email" type="email" class="form-control" id="email" required>
+                        <div class="invalid-feedback">
+                            Please choose a email.
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row mx-auto">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group has-validation">
-                    <input v-model="email" type="email" class="form-control" id="email" required>
-                    <div class="invalid-feedback">
-                        Please choose a email.
+
+            <div class="col-md-6">
+                <div class="col-md-12 mx-auto mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <div class="input-group has-validation">
+                        <input v-model="password" type="password" class="form-control" id="password" required>
+                        <div class="invalid-feedback">
+                            Please choose a password.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mx-auto">
-                <label for="password" class="form-label">Mot de passe</label>
-                <div class="input-group has-validation">
-                    <input v-model="password" type="password" class="form-control" id="password" required>
-                    <div class="invalid-feedback">
-                        Please choose a password.
+                <div class="col-md-12 mx-auto">
+                    <label for="password" class="form-label">Confirmation du mot de passe</label>
+                    <div class="input-group has-validation">
+                        <input v-model="passwordConfirmation" type="password" class="form-control" id="passwordConfirm"
+                            required>
+                        <div class="invalid-feedback">
+                            Please choose a passwordConfirm.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mx-auto">
-                <label for="password" class="form-label">Confirmation du mot de passe</label>
-                <div class="input-group has-validation">
-                    <input v-model="passwordConfirmation" type="password" class="form-control" id="passwordConfirm"
-                        required>
-                    <div class="invalid-feedback">
-                        Please choose a passwordConfirm.
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="input-group mb-3 mt-2 col-3">
-                    <div class="dropzone-container">
-                        <label for="image" class="dropzone-label">
-                            <div class="dropzone-content">
-                                <svg class="dropzone-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                </svg>
-                                <p class="dropzone-text"><span class="dropzone-text-bold">Click to upload</span> or drag
-                                    and
-                                    drop</p>
-                                <p class="dropzone-subtext">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                            </div>
-                            <input id="image" type="file" class="hidden" @change="onFileChange" name="image" />
-                        </label>
+                <div class="col-12">
+                    <div class="input-group mb-3 mt-2 col-3">
+                        <div class="dropzone-container">
+                            <label for="image" class="dropzone-label">
+                                <div class="dropzone-content">
+                                    <svg class="dropzone-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                    </svg>
+                                    <p class="dropzone-text"><span class="dropzone-text-bold">Click to upload</span> or
+                                        drag
+                                        and
+                                        drop</p>
+                                    <p class="dropzone-subtext">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="image" type="file" class="hidden" @change="onFileChange" name="image" />
+                            </label>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
             <div class="row mt-4 text-center mx-auto">
+                <div class="col-12 d-flex align-items-end mb-3">
+                    <input type="checkbox" name="cgu" class="me-3" v-model="cguCheck">
+                    <label for="cgu">J'accepte les <router-link to="/cgu">conditions générales
+                            d'utilisation</router-link></label>
+                </div>
                 <button class="btn btn-dark" type="submit">
                     <i v-if="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
                     <span v-if="!isLoading">S'inscrire</span>
@@ -76,14 +96,18 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
+import Swal from 'sweetalert2';
+
 const router = useRouter();
 const isLoading = ref(false);
 const email = ref("");
-const pseudo = ref("");
+const firstname = ref("");
+const lastname = ref("");
 const password = ref("");
 const passwordConfirmation = ref("");
 const image = ref(null);
 const userStore = useUserStore();
+const cguCheck = ref(null)
 
 if (userStore.user) {
     router.push('/');
@@ -95,31 +119,55 @@ const onFileChange = (event) => {
 };
 
 
-const register = () => {
-    isLoading.value = true;
-    const formData = new FormData();
-    formData.append('email', email.value);
-    formData.append('pseudo', pseudo.value);
-    formData.append('password', password.value);
-    formData.append('password_confirmation', passwordConfirmation.value);
-    if (image.value) {
-        formData.append('image', image.value);
-    }
-    console.log(formData)
-    axios.post(`http://localhost:8000/api/users`, formData)
-        .then(res => {
-            // userStore.storeUserData(res.data.user)
-            console.log(res)
-            router.push('/');
-        })
-        .catch(error => {
-            console.log(error)
-        })
-        .finally(() => {
-            isLoading.value = false;
+const register = async () => {
+    if (!cguCheck.value) {
+        Swal.fire({
+            title: 'Erreur!',
+            text: 'Veuillez accepter les CGU',
+            icon: 'error',
+            confirmButtonText: 'OK'
         });
+        return;
+    }
 
-}
+    try {
+        isLoading.value = true;
+        const formData = new FormData();
+        formData.append('email', email.value);
+        formData.append('firstname', firstname.value);
+        formData.append('lastname', lastname.value);
+        formData.append('password', password.value);
+        formData.append('password_confirmation', passwordConfirmation.value);
+        if (image.value) {
+            formData.append('image', image.value);
+        }
+        const res = await axios.post('http://localhost:8000/api/users', formData);
+
+        Swal.fire({
+            title: 'Succès!',
+            text: 'Inscription réussie',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+        await axios.get('/sanctum/csrf-cookie');
+        const loginRes = await axios.post('/api/login', {
+            email: email.value,
+            password: password.value
+        });
+        userStore.storeUserData(loginRes.data.user);
+        router.push('/');
+    } catch (error) {
+        console.error("Erreur lors de l'inscription ou de la connexion:", error);
+        Swal.fire({
+            title: 'Erreur!',
+            text: 'Un problème est survenu. Veuillez réessayer.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } finally {
+        isLoading.value = false;
+    }
+};
 </script>
 
 <style scoped>
@@ -140,7 +188,7 @@ const register = () => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 16rem;
+    height: 10rem;
     /* 64 * 0.25rem */
     border: 2px dashed #d1d5db;
     /* gray-300 */
