@@ -79,7 +79,7 @@
 
             <div class="row mt-4 text-center mx-auto">
                 <div class="col-12 d-flex align-items-end mb-3">
-                    <input type="checkbox" name="cgu" class="me-3" v-model="cguCheck">
+                    <input type="checkbox" name="cgu" id="cgu" class="me-3" v-model="cguCheck">
                     <label for="cgu">J'accepte les <router-link to="/cgu">conditions générales
                             d'utilisation</router-link></label>
                 </div>
@@ -134,6 +134,7 @@ const register = async () => {
         isLoading.value = true;
         const formData = new FormData();
         formData.append('email', email.value);
+        formData.append('cgu', cguCheck.value);
         formData.append('firstname', firstname.value);
         formData.append('lastname', lastname.value);
         formData.append('password', password.value);
@@ -141,7 +142,7 @@ const register = async () => {
         if (image.value) {
             formData.append('image', image.value);
         }
-        const res = await axios.post('http://localhost:8000/api/users', formData);
+        const res = await axios.post('/api/users', formData);
 
         Swal.fire({
             title: 'Succès!',

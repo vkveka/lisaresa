@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-lg-2 col-12">
 
-                            <img :src="`/images/${imageValue}`" alt="profile picture lisaresa"
+                            <img :src="`/images/users/${imageValue}`" alt="profile picture lisaresa"
                                 style="width: 100px; height: auto;">
                         </div>
                         <div class="col-lg-5 col-12">
