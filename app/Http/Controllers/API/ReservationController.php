@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreReservationRequest;
-use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreReservationRequest;
+use App\Http\Requests\UpdateReservationRequest;
 
 class ReservationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin')->except('index', 'show');
+        $this->middleware('admin')->except('index', 'show', 'getResaForUser', 'store');
     }
 
     /**
@@ -29,14 +30,34 @@ class ReservationController extends Controller
         ], 200);
     }
 
+    public function getResaForUser()
+    {
+        $userId = auth()->id();
+
+        $reservations = Reservation::with('accomodation', 'user')
+            ->where('user_id', $userId)
+            ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Les réservations ont bien été récupérées',
+            'reservations' => $reservations,
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreReservationRequest $request)
     {
-        $reservation = Reservation::create(
-            $request->all()
-        );
+        $reservation = Reservation::create([
+            'date_in' => $request->date_in,
+            'date_out' => $request->date_out,
+            'price' => $request->price,
+            'numero' => $request->numero,
+            'user_id' => $request->user_id,
+            'accomodation_id' => $request->accomodation_id,
+        ]);
 
         return response()->json([
             'status' => true,

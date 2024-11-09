@@ -2,8 +2,8 @@
     <div>
         <form @submit.prevent="searchAccomodations">
             <div class="" style="width: 100%;">
-                <div class="parentSearchInput d-flex gap-2">
-                    <div class="w-100 position-relative">
+                <div class="parentSearchInput d-flex ">
+                    <div class="w-100 position-relative mb-lg-0 mb-2">
                         <input type="text" class="form-control border-0 " placeholder="Lieu..." v-model="searchQuery"
                             @input="searchCities" @click="searchCities(); hideDatePicker()">
                         <ul id="citiesList" class="listStyle" v-if="cities"
@@ -16,8 +16,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="position-relative w-100" @click.stop>
-                        <input type="text" class="form-control border-0" placeholder="Dates..."
+                    <div class="position-relative w-100 d-flex flex-row mb-lg-0 mb-2" @click.stop>
+                        <input type="text" class="form-control border-0 input-date" placeholder="Dates..."
                             @focus="showDatePicker = true" v-model="selectedDate" @click="resetList">
                         <div class="position-absolute d-flex gap-3" style="" :style="{
                             display: showDatePicker ? 'block' : 'none',
@@ -27,19 +27,20 @@
                             <VDatePicker v-model.range.number="range" v-if="showDatePicker" @click="logSelectedDate"
                                 @focus="showDatePicker = true" />
                         </div>
+                        <input type="number" class="form-control border-0" v-model="persons" placeholder="0"
+                            @click="hideDatePicker(), resetList()" style="width: 90px;">
                     </div>
-                    <input type="number" class="form-control border-0" v-model="persons" placeholder="0"
-                        @click="hideDatePicker(), resetList()" style="width: 90px;">
-                    <div class="flex-column">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
-                            @click="fixedBody">
+                    <div class="d-flex flex-row justify-content-between gap-2 w-100 ms-2">
+                        <button type="button" class="btn btn-outline-secondary d-flex gap-2 align-items-center"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample" @click="fixedBody">
                             <i class="fa-solid fa-list"></i>
+                            <p class="m-0">Filtres</p>
                         </button>
+                        <button type="submit" class="btn btn-green">Rechercher</button>
                     </div>
-                    <button type="submit" class="btn btn-success mx-auto">Go</button>
                 </div>
-                <div class="collapse w-100 mt-3" id="collapseExample" style="left:0">
+                <div class="collapse w-100 mt-3" id="collapseExample" style="left:0; ">
                     <div class="card card-body">
                         <div class="typeAccomodation mb-3">
 
@@ -147,7 +148,7 @@ const villeId = ref(props.initialLocationId || 0);
 
 
 // Création d'un émetteur pour envoyer les données au parent
-const emit = defineEmits(['searchResults']);
+// const emit = defineEmits(['searchResults']);
 
 const searchAccomodations = () => {
     hideDatePicker();
@@ -156,7 +157,20 @@ const searchAccomodations = () => {
     const locationId = parseInt(villeId.value)
     const nbPersons = persons.value
     const optionIds = checkedInputs.value.map(option => option.id);
-    const typeAccomodation = selectedAccomodationType.value
+    const typeAccomodation = selectedAccomodationType.value;
+
+    const paramsArray = [
+        ['location_id', locationId],
+        ['date_in', dateIn.toISOString().split('T')[0],],
+        ['date_out', dateOut.toISOString().split('T')[0],],
+        ['persons', nbPersons],
+        ['options', optionIds],
+        ['type_accomodation', typeAccomodation],
+        ['min_price', minPriceInput.value],
+        ['max_price', maxPriceInput.value],
+    ].filter(([, value]) => value !== null && value !== undefined);
+    console.log(paramsArray);
+    const params = Object.fromEntries(paramsArray);
 
     console.log('dateIn :>> ', dateIn);
     console.log('dateOut :>> ', dateOut);
@@ -165,39 +179,44 @@ const searchAccomodations = () => {
     console.log('optionIds :>> ', optionIds);
     console.log('typeAccomodation :>> ', typeAccomodation);
 
-    const collapseElement = document.querySelector('.collapse.show');
-    axios.get('/api/accomodations/search', {
-        params: {
-            date_in: dateIn.toISOString(),
-            date_out: dateOut.toISOString(),
-            location_id: locationId,
-            persons: nbPersons,
-            options: optionIds,
-            type_accomodation: typeAccomodation,
-            min_price: minPriceInput.value,
-            max_price: maxPriceInput.value,
+    router.push({
+        name: 'AccomodationsList',
+        query: {
+            ...params
         }
-    })
-        .then((res) => {
-            if (collapseElement) {
-                collapseElement.classList.remove('show')
-            }
-            const accomodationsList = res.data.accomodations;
-            accomodations.value = accomodationsList
+    });
 
-            if (accomodationsList.value) {
-                const prices = res.data.accomodations.map(accomodation => accomodation.price);
-                minPriceInput.value = Math.min(...prices);
-                maxPriceInput.value = Math.max(...prices);
-                value2.value = [minPriceInput.value, maxPriceInput.value];
+    // const collapseElement = document.querySelector('.collapse.show');
+    // axios.get('/api/accomodations/search', {
+    //     params: {
+    //         date_in: dateIn.toISOString(),
+    //         date_out: dateOut.toISOString(),
+    //         location_id: locationId,
+    //         persons: nbPersons,
+    //         options: optionIds,
+    //         type_accomodation: typeAccomodation,
+    //         min_price: minPriceInput.value,
+    //         max_price: maxPriceInput.value,
+    //     }
+    // })
+    //     .then((res) => {
+    //         if (collapseElement) {
+    //             collapseElement.classList.remove('show')
+    //         }
+    //         const accomodationsList = res.data.accomodations;
+    //         accomodations.value = accomodationsList
 
-
-            }
-            emit('searchResults', res.data.accomodations)
-        })
-        .catch((err) => {
-            console.error('Erreur lors de la recherche des logements :', err.status);
-        });
+    //         if (accomodationsList.value) {
+    //             const prices = res.data.accomodations.map(accomodation => accomodation.price);
+    //             minPriceInput.value = Math.min(...prices);
+    //             maxPriceInput.value = Math.max(...prices);
+    //             value2.value = [minPriceInput.value, maxPriceInput.value];
+    //         }
+    //         emit('searchResults', { accomodations: accomodationsList, dateIn, dateOut });
+    //     })
+    //     .catch((err) => {
+    //         console.error('Erreur lors de la recherche des logements :', err);
+    //     });
 }
 
 watch(value2, (newVal, oldVal) => {
@@ -283,10 +302,10 @@ const getOptions = async () => {
 
 getOptions();
 
-const fixedBody = () => {
-    document.body.classList.toggle('no-scroll');
-    console.log('Classe no-scroll présente :', document.body.classList.contains('no-scroll'));
-};
+// const fixedBody = () => {
+//     document.body.classList.toggle('no-scroll');
+//     console.log('Classe no-scroll présente :', document.body.classList.contains('no-scroll'));
+// };
 
 </script>
 <style scoped>
@@ -316,7 +335,6 @@ const fixedBody = () => {
     background-color: rgba(255, 255, 255, 0.863);
     border: 1px solid rgba(128, 128, 128, 0.377);
     padding: 10px;
-    height: 80px;
     align-items: center;
     height: 100%;
 }
@@ -324,6 +342,22 @@ const fixedBody = () => {
 .parentSearchInput input {
     font-style: normal;
     height: 100%;
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    background-color: rgba(255, 255, 255, 0.932);
+    border: 1px solid rgba(0, 0, 0, 0.068) !important;
+}
+
+input::placeholder {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+form button {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .listStyle {
@@ -356,6 +390,32 @@ const fixedBody = () => {
 
     .collapseBtnRight a {
         margin: 0 !important;
+    }
+
+    .parentSearchInput {
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 991px) {
+
+    .input-date {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    input[type="text"] {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type="number"] {
+        border-radius: 0;
+    }
+
+    button[type="submit"] {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 </style>

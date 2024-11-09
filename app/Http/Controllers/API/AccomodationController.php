@@ -94,6 +94,7 @@ class AccomodationController extends Controller
      */
     public function store(StoreAccomodationRequest $request)
     {
+        dd($request);
         $accomodation = Accomodation::create([
             'name' => $request->name,
             'description' => $request->description,

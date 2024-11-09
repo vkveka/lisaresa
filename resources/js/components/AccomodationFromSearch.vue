@@ -1,11 +1,10 @@
 <template>
     <div>
-        <!-- <router-link :to="{ name: 'AccomodationDetails', params: { id: accomodation.id } }" style="text-decoration: none;"> -->
-        <div class="card" style="width: 350px;border: none; border-top-left-radius: 5px; border-top-right-radius: 5px;"
-            @click="goToAccomodationDetails(accomodation)">
+        <div class="card" style="width: 350px;border: none; border-top-left-radius: 5px; border-top-right-radius: 5px;">
             <div class="card-content">
                 <div class="card-body d-flex flex-column p-0 m-0" style=" border: 0 solid transparent;">
-                    <img v-if="accomodation.images[0]" :src="`/images/accomodations/${accomodation.id}/${accomodation.images[0].name}`"
+                    <img v-if="accomodation.images[0]"
+                        :src="`/images/accomodations/${accomodation.id}/${accomodation.images[0].name}`"
                         alt="image logement lisaresa"
                         style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
                     <span class="fw-bold fs-5 m-3">{{ accomodation.name }}</span>
@@ -18,31 +17,15 @@
                 </div>
             </div>
         </div>
-        <!-- </router-link> -->
     </div>
 </template>
 <script setup>
-import { defineProps } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAccomodationStore } from '../stores/accomodationStore';
-
-const accomodationStore = useAccomodationStore();
-
-const router = useRouter();
-
 defineProps({
     accomodation: {
         type: Object,
         required: true,
     }
-});
-
-// déclenche au click d'un logement
-const goToAccomodationDetails = async (accomodation) => {
-    accomodationStore.selectedAccomodation = accomodation;
-    await router.push({ name: 'AccomodationDetails', params: { id: accomodation.id } });
-};
-
+}); 
 </script>
 <style scoped>
 .card-body {

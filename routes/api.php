@@ -26,6 +26,7 @@ Route::apiResource("users", UserController::class);
 Route::get('accomodations/search', [AccomodationController::class, 'accomodationFromSearch'])->name('accomodations.search');
 Route::apiResource("accomodations", AccomodationController::class);
 Route::apiResource("comments", CommentController::class)->middleware('auth:sanctum');
+Route::get("reservations/getResaForUser", [ReservationController::class, 'getResaForUser'])->name('reservations.getResaForUser')->middleware('auth:sanctum');
 Route::apiResource("reservations", ReservationController::class)->middleware('auth:sanctum');
 Route::apiResource("options", OptionController::class);
 Route::apiResource("payments", PaymentController::class)->middleware('auth:sanctum');

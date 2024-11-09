@@ -39,8 +39,7 @@
             </div>
         </div>
         <div class="col-md-4 text-center mx-auto">
-            <img :src="`/images/logo/logo_brown.png`" alt="logo lisaresa" width="auto" height="40px"
-                class="mx-5 mt-5">
+            <img :src="`/images/logo/logo_brown.png`" alt="logo lisaresa" width="auto" height="40px" class="mx-5 mt-5">
         </div>
         <div class="col-md-4 text-center mx-auto">
             <p>2024 &#169; lisaresa.fr</p>
@@ -54,14 +53,16 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 const searchAccomodationFooter = (location_id, city_name) => {
     const dateIn = new Date().toISOString().split('T')[0];
-    const dateOut = new Date().toISOString().split('T')[0];
+    const dateOut = new Date();
+    dateOut.setDate(dateOut.getDate() + 1);
+    const formattedDateOut = dateOut.toISOString().split('T')[0];
     const search_query = city_name
     router.push({
         name: 'AccomodationsList',
         query: {
             location_id: location_id,
             date_in: dateIn,
-            date_out: dateOut,
+            date_out: formattedDateOut,
             persons: 0,
             search_query: search_query
         }

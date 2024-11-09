@@ -7,7 +7,7 @@
                         <div class="col-lg-2 col-12">
 
                             <img :src="`/images/users/${imageValue}`" alt="profile picture lisaresa"
-                                style="width: 100px; height: auto;">
+                                style="width: 60px; height: auto;">
                         </div>
                         <div class="col-lg-5 col-12">
                             <label for="firstname" class="form-label">Prénom</label>

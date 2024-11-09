@@ -10,7 +10,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse ms-lg-0 ms-3" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0 w-100 justify-content-between me-5 ms-0 ms-xl-5">
+                    <ul class="navbar-nav mb-2 mb-lg-0 w-100 justify-content-between ms-0 ms-xl-5">
                         <li class="nav-item pe-5">
                             <router-link class="nav-link active" aria-current="page" to="/">Accueil</router-link>
                         </li>
@@ -27,7 +27,7 @@
                         <li class="nav-item pe-5">
                             <router-link class="nav-link " aria-current="page" to="/avis">Avis</router-link>
                         </li>
-                        <li class="nav-item pe-5 my-auto">
+                        <li class="nav-item pe-3 my-auto">
                             <div class="dropdown dropstart" style="cursor: pointer; max-width: 100px;">
                                 <div v-if="userStore.user">
                                     <img :src="`/images/users/${userStore.user.image}`" data-bs-toggle="dropdown"
@@ -35,7 +35,7 @@
                                         alt="image user non connecté" width="40px" height="40px">
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <router-link class="dropdown-item" :to="`/user/${userStore.user.id}`">Mon
+                                            <router-link class="dropdown-item" :to="`/user`">Mon
                                                 Compte</router-link>
                                         </li>
                                         <li><router-link class="dropdown-item" to="/logout">Deconnexion</router-link>

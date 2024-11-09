@@ -67,7 +67,7 @@ const router = createRouter({
             component: LogoutRedirect,
         },
         {
-            path: '/user/:id',
+            path: '/user',
             name: 'UserProfile',
             component: MyAccount
         },
@@ -76,7 +76,7 @@ const router = createRouter({
             name: 'CGU',
             component: Cgu
         },
-    ]
+    ],
 })
 
 export default router
